@@ -10,6 +10,25 @@ Twenty-four works have numerical assessments for the selected settings, includin
 
 This is a curated search result, not an exhaustive literature census. Its simulator counts cannot establish whether MuJoCo or the Isaac family is more common across all Franka sim-to-real research. Learning on mixed simulated/real data, real adaptation, system identification, and zero-shot policy transfer are explicitly distinguished.
 
+## Simulator statistics
+
+Statistics snapshot: **2026-10-02**, derived from the existing 84 reviewed entries. This aggregation does not change the individual papers' review dates or imply a new literature search. Each paper contributes once to a mutually exclusive training-simulator/framework category for its reviewed physical task, including simulated training-data generation. Framework aliases share their established simulator category; renderer and evaluation-only mentions do not create extra counts.
+
+The resulting counts are **MuJoCo/MJX 28**, **Isaac Gym 15**, **PyBullet 10**, **Isaac Lab 8**, **Isaac Sim 4**, **ManiSkill/SAPIEN 4**, **custom task simulators 2**, **NVIDIA FleX 2**, and **one each** for AGX Dynamics, CoppeliaSim/RLBench, Drake, FluidEngine/Taichi and Gazebo. **Six** task-specific simulator identities remain unresolved. These sum to **84**; the separately reported Isaac-family subtotal is **27**, not an additional category. Shares use all 84 papers, including the unresolved six, and are rounded to one decimal place.
+
+| Case | Statistical assignment |
+| --- | --- |
+| Isaac Lab | ReBot, AnyTask, MATCH, RFS, Tac2Real, Tune to Learn, DAPL and GOMP. Count these eight once under Lab, not again under Sim. This is a framework grouping; Tac2Real's additional PNCG-IPC tactile simulation remains documented in its review. |
+| Isaac Sim | Action-space study, AffordSim, RialTo and Re³Sim. Re³Sim's release also uses Lab tooling, but its reviewed training simulator is identified as Isaac Sim. Preserve the action-space study's explicit Sim wording. |
+| ResiP | Isaac Gym for task learning; its Isaac Sim rendering does not add a second paper or change the category. |
+| FORGE / TacSL | Isaac Gym, following the reviewed training setup; a later Lab port or migration announcement does not reclassify the original experiment. |
+| GraspLDM | NVIDIA FleX through ACRONYM training data; Isaac Gym is evaluation-only. SimOpt is the other FleX entry. |
+| CREST / Bolting | Two explicitly custom task simulators. CREST's separate Isaac Gym target-domain evaluation is excluded. |
+| Torque-controlled transfer | MuJoCo training; Gazebo transfer testing is excluded. Latent prediction supplies the single Gazebo training entry. |
+| Unresolved task-specific identities | DROPO, World-action transfer, Exploration-policy transfer, SGFT, Collision mesh poisoning and CRSfD. Simulator citations, framework-level engine names or other tasks do not establish the backend for the selected physical task. Exploration-policy transfer identifies a custom Franka simulator but does not resolve its pushing engine; it stays in this category. |
+
+Verification checked one assignment per index row, category totals against all 84 papers, the 27-paper Isaac subtotal, percentage calculations, and preservation of the score-sorted index and detailed reviews. This checks the aggregation, not an independent reproduction of the experiments.
+
 ## Sources checked
 
 - Full papers, experimental setups, transfer sections, tables/figures, and relevant appendices. Graphical tables and plots used for numerical assessment were inspected visually, including DPPO Fig. 8, Fruit Harvesting Fig. 7, Context-aware policies Table 5, Centralized dual-arm assembly Fig. 6, the action-space study Table I, D²PPO Fig. 10, and TAM Table 1.

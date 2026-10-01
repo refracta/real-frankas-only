@@ -32,6 +32,8 @@ Keep this file and other research instructions under `docs/`. Keep `README.md` f
 
 Sort the README index and detailed reviews by score **4, 3, 2, 1, 0, then Unrated**. For entries with multiple scores, use the highest displayed score only as the sorting key and preserve every setting's assessment. Keep the existing relative order within each score group. Reordering alone changes the README update date, not individual paper review dates.
 
+Maintain the README training-simulator statistics when adding or revising papers. Count each distinct paper once for its reviewed physical task, including simulators that generated its policy-training data. Use mutually exclusive categories: keep Isaac Gym, Isaac Lab and Isaac Sim separate, placing an explicitly identified Lab training setup only under Lab. Exclude evaluation-only simulators, rendering tools and unrelated tasks. Preserve unresolved task-specific simulator identities in a separate category instead of classifying by a framework mention or citation. Divide every count by the full reviewed-paper count, including unresolved entries; any Isaac-family subtotal must not be added to the category total. Record the snapshot date and explain consequential assignments in the search audit.
+
 ## Required information
 
 | Field | What to record |

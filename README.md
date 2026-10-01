@@ -20,6 +20,30 @@ Scores apply to the selected task and policy setting. Where the evaluations are 
 
 **Unrated** means REAL results are quantitative, but a comparable SIM result is unavailable. It is not score 0. Scores assess reported evidence, not independent reproduction; a high retention ratio does not necessarily mean high absolute success.
 
+## Training simulator statistics
+
+**As of 2026-10-02 · 84 distinct papers.** Each paper is counted once, using the training or training-data-generation simulator for its reviewed physical task. Evaluation-only simulators and rendering tools are excluded. These counts describe this collection, not the entire literature.
+
+| Training simulator / framework | Papers | Share of 84 papers |
+| --- | ---: | ---: |
+| MuJoCo / MJX | 28 | 33.3% |
+| Isaac Gym | 15 | 17.9% |
+| PyBullet | 10 | 11.9% |
+| Isaac Lab | 8 | 9.5% |
+| Isaac Sim — outside the Isaac Lab category | 4 | 4.8% |
+| ManiSkill / SAPIEN | 4 | 4.8% |
+| Custom task simulator | 2 | 2.4% |
+| NVIDIA FleX | 2 | 2.4% |
+| AGX Dynamics | 1 | 1.2% |
+| CoppeliaSim / RLBench | 1 | 1.2% |
+| Drake | 1 | 1.2% |
+| FluidEngine / Taichi | 1 | 1.2% |
+| Gazebo | 1 | 1.2% |
+| Not established for the reviewed task | 6 | 7.1% |
+| **Total** | **84** | **100.0%** |
+
+**Isaac family combined: 27 papers (32.1%)** — 15 Gym + 8 Lab + 4 Sim. Isaac Lab entries are not counted again under Isaac Sim. MuJoCo includes robosuite, MuJoCo Playground and other MuJoCo-based task frameworks. Percentages are rounded; [counting rules and ambiguous cases](docs/SEARCH_AUDIT.md#simulator-statistics).
+
 ## Reviewed papers
 
 **84 distinct papers with physical Franka deployment**, checked against their full papers and official supporting materials. Twenty-four papers have a numerical score for the selected setting; sixty remain **Unrated** because a defensible SIM-to-REAL retention comparison is unavailable. Different tasks, preprints, and published versions of the same work are not counted as additional papers.
