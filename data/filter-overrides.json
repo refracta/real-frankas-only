@@ -1,0 +1,16 @@
+{
+  "simulator": {
+    "dropo-2023": "Not established for the reviewed task",
+    "world-action-transfer-2026": "Not established for the reviewed task",
+    "exploration-policy-transfer-2024": "Not established for the reviewed task",
+    "sgft-2025": "Not established for the reviewed task",
+    "collision-mesh-poisoning-2026": "Not established for the reviewed task",
+    "crsfd-2022": "Not established for the reviewed task",
+    "graspldm-2024": "NVIDIA FleX"
+  },
+  "models": {
+    "intervengen-2024": ["Conflicting / ambiguous"],
+    "qd-grasp-transfer-2024": ["Conflicting / ambiguous"],
+    "transic-2024": ["Conflicting / ambiguous"]
+  }
+}

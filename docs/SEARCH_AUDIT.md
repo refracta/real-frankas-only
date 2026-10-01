@@ -4,7 +4,7 @@ Last checked: **2026-10-01 (Asia/Seoul)**
 
 ## Scope and outcome
 
-The current collection contains **84 distinct works** with a task policy learned using simulation and deployed on physical Franka hardware. Successive expansions added 20, 18, 13 and **13** works to the initial 20-paper review. Each README entry identifies a reviewed task or task family, learning method, training simulator or an explicit unresolved simulator identity, hardware wording, physical end-effector, publication record, and a full-paper evidence location. Deployment can involve a learned grasp or primitive inside a programmed controller; those interfaces are explicitly described.
+The current collection contains **84 distinct works** with a task policy learned using simulation and deployed on physical Franka hardware. Successive expansions added 20, 18, 13 and **13** works to the initial 20-paper review. Each catalog entry identifies a reviewed task or task family, learning method, training simulator or an explicit unresolved simulator identity, hardware wording, physical end-effector, publication record, and a full-paper evidence location. Deployment can involve a learned grasp or primitive inside a programmed controller; those interfaces are explicitly described.
 
 Twenty-four works have numerical assessments for the selected settings, including four qualitative-task-only scores of 0. Sixty have quantitative physical results but remain unscored because their SIM counterpart or evaluation protocol cannot support the specified retention rubric. Context-aware policies and the action-space study each have two scores for different settings; each still counts as one paper. Multiple versions of MuJoCo Playground likewise count once.
 
@@ -14,7 +14,7 @@ This is a curated search result, not an exhaustive literature census. Its simula
 
 Statistics snapshot: **2026-10-02**, aggregated from the 84 existing index entries without reassessing papers. The mutually exclusive counts are **score 4: 4**, **score 3: 5**, **score 2: 7**, **score 1: 2**, **score 0: 4**, **multiple scores: 2**, and **Unrated: 60**. Each paper contributes once, giving **22 single-score + 2 multiple-score + 60 Unrated = 84 papers**. All shares use 84 as the denominator and are rounded to one decimal place. The scored-paper subtotal is **24/84 = 28.6%**; it includes score 0.
 
-The multiple-score papers are [Action-space study](../README.md#action-space-study-2024), with **3 / 1** by action space, and [Context-aware policies](../README.md#context-aware-policies-2026), with **2 / 1** by setting. They are not added to the individual score rows or reduced to their maximum. Their higher displayed scores still determine their positions in the index. Unrated denotes unavailable SIM-to-REAL comparison, not zero physical performance.
+The multiple-score papers are [Action-space study](../data/papers.md#action-space-study-2024), with **3 / 1** by action space, and [Context-aware policies](../data/papers.md#context-aware-policies-2026), with **2 / 1** by setting. They are not added to the individual score rows or reduced to their maximum. Their higher displayed scores still determine their positions in the index. Unrated denotes unavailable SIM-to-REAL comparison, not zero physical performance.
 
 ## Index resource links
 

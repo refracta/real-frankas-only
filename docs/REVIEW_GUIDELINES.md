@@ -28,11 +28,11 @@ The review unit is **paper × task × policy/transfer setting**. Split entries w
 
 The initial collection target is **at least 20 distinct eligible papers**, not 20 task rows. This is a minimum, not a stopping rule: continue expanding the collection when requested and eligible evidence is available. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
 
-Keep this file and other research instructions under `docs/`. Keep `README.md` focused on the reviewed results, with end-effector, video/visuals and code columns, a compact 0–4 score key and an explanation of Unrated, as requested by the user. Link to this file for the detailed review procedure. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
+Keep this file and other research instructions under `docs/`. Keep `README.md` compact: the interactive explorer link, score key, explanation of Unrated, and score/simulator statistics. Maintain the paper index and full reviews in `data/papers.md`; the website publishes both. See [website maintenance](WEBSITE.md) for builds and filters. Link to this file for the detailed review procedure. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
 
 Expose reviewed official video and source URLs in the paper index as well as the detailed reviews. Prefer a direct video link when available; otherwise label a project page or physical photos accurately. Distinguish GitHub/GitLab task code from limited examples, simulator utilities, later ports, website-only repositories, release announcements and broken links. Use an em dash when no verified public resource URL was located; preserve the detailed review's coverage and availability qualifications.
 
-Sort the README index and detailed reviews by score **4, 3, 2, 1, 0, then Unrated**. For entries with multiple scores, use the highest displayed score only as the sorting key and preserve every setting's assessment. Keep the existing relative order within each score group. Reordering alone changes the README update date, not individual paper review dates.
+Sort the source index and detailed reviews by score **4, 3, 2, 1, 0, then Unrated**. For entries with multiple scores, use the highest displayed score only as the sorting key and preserve every setting's assessment. Keep the existing relative order within each score group. Reordering alone changes the collection update date, not individual paper review dates.
 
 Maintain the README score statistics when adding or changing assessments. Count each distinct paper once using the displayed score for its reviewed setting. Put papers with different scores across settings in a separate multiple-score category; do not use the highest-score sorting key as a paper-wide assessment. Keep Unrated separate from score 0. Use all reviewed papers as the percentage denominator, include multiple-score papers in the scored-paper subtotal, and record the snapshot date.
 
@@ -90,7 +90,7 @@ For example, 72% REAL success against 80% SIM success means **90% retention**, a
 
 Use primary sources: the paper and supplement, publisher/proceedings record, and authors' project, video, and code pages. Search for public videos and GitHub releases even when the paper does not link them. “Not located as of YYYY-MM-DD” is preferable to claiming a resource does not exist.
 
-Copy this template, complete the evidence, and add a row to the index. Update the review date and the README date whenever an assessment or link status changes.
+Copy this template into `data/papers.md`, complete the evidence, and add a row to its index. Update the review date and the README date whenever an assessment or link status changes.
 
 ```markdown
 ### Short paper name (year) — task / policy setting

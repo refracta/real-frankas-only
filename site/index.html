@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Simulation-trained policies deployed on real Franka robots. Search papers, compare simulators and hardware, and inspect the SIM-to-REAL evidence."
+    />
+    <meta name="theme-color" content="#173f35" />
+    <title>real-frankas-only · Paper explorer</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#explorer">Skip to papers</a>
+    <header class="site-header wrap">
+      <a class="brand" href="./"
+        ><span class="brand-mark" aria-hidden="true">r<span>f</span></span
+        >real-frankas-only<span class="brand-suffix">/ explorer</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="https://github.com/refracta/real-frankas-only#score-statistics"
+          >Statistics ↗</a
+        ><a href="https://github.com/refracta/real-frankas-only">GitHub ↗</a>
+      </nav>
+    </header>
+    <main class="wrap">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">
+            <span class="status-dot"></span> SIM → REAL / FRANKA POLICY INDEX
+          </p>
+          <h1 id="page-title">
+            Only policies that made it<br />onto a <em>real Franka.</em>
+          </h1>
+          <p class="intro">
+            Explore the tasks, hardware and evidence behind sim-to-real
+            transfer.
+          </p>
+          <p class="updated">
+            Collection updated <time id="updated">—</time>
+            <span>· Asia/Seoul</span>
+          </p>
+        </div>
+        <div class="collection-stats" aria-label="Collection statistics">
+          <div>
+            <strong id="total-stat">—</strong><span>Reviewed papers</span>
+          </div>
+          <div><strong id="scored-stat">—</strong><span>Scored 0–4</span></div>
+          <div><strong id="unrated-stat">—</strong><span>Unrated</span></div>
+        </div>
+      </section>
+      <details class="score-guide">
+        <summary>
+          <span
+            ><span class="mini-scores" aria-hidden="true"
+              >0 · 1 · 2 · 3 · 4</span
+            >
+            How to read the scores</span
+          ><span class="guide-hint">Evidence, retention & Unrated</span>
+        </summary>
+        <div class="score-guide-content">
+          <!-- SCORE_KEY --><a
+            href="https://github.com/refracta/real-frankas-only/blob/main/docs/REVIEW_GUIDELINES.md"
+            >Full review criteria ↗</a
+          >
+        </div>
+      </details>
+      <section id="explorer" aria-label="Paper explorer" tabindex="-1">
+        <form
+          id="filters"
+          class="filters"
+          role="search"
+          aria-label="Search and filter papers"
+        >
+          <div class="search-row">
+            <div class="search-box">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                <path d="m16 16 5 5"></path>
+              </svg>
+              <label class="sr-only" for="search">Search papers</label>
+              <input
+                id="search"
+                name="q"
+                type="search"
+                placeholder="Search papers, tasks, methods, hardware or DOI…"
+                autocomplete="off"
+                maxlength="500"
+              />
+              <kbd aria-hidden="true">/</kbd>
+            </div>
+            <button type="reset" class="button secondary" id="reset-filters">
+              Reset filters <span aria-hidden="true">↺</span>
+            </button>
+          </div>
+          <div class="filter-grid">
+            <label
+              >Score<select id="score" name="score">
+                <option value="">All scores</option>
+                <option value="4">4 · ≥90% + materials</option>
+                <option value="3">3 · ≥90% retention</option>
+                <option value="2">2 · ~75–90% retention</option>
+                <option value="1">1 · Severe gap</option>
+                <option value="0">0 · Qualitative only</option>
+                <option value="Multiple">Multiple scores</option>
+                <option value="Unrated">Unrated</option>
+              </select></label
+            >
+            <label
+              >Training simulator<select id="simulator" name="simulator">
+                <option value="">All simulators</option>
+              </select></label
+            >
+            <label
+              >Franka model<select id="model" name="model">
+                <option value="">All models</option>
+              </select></label
+            >
+            <label
+              >Year<select id="year" name="year">
+                <option value="">All years</option>
+              </select></label
+            >
+          </div>
+        </form>
+        <div class="results-toolbar">
+          <p
+            id="result-count"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            Loading reviewed papers…
+          </p>
+          <label class="sort-label" for="sort"
+            >Sort by
+            <select id="sort">
+              <option value="score-desc">Score · highest first</option>
+              <option value="score-asc">Score · lowest first</option>
+              <option value="year-desc">Year · newest first</option>
+              <option value="year-asc">Year · oldest first</option>
+              <option value="name-asc">Paper · A–Z</option>
+              <option value="name-desc">Paper · Z–A</option>
+              <option value="task-asc">Task · A–Z</option>
+              <option value="task-desc">Task · Z–A</option>
+              <option value="simulator-asc">Simulator · A–Z</option>
+              <option value="simulator-desc">Simulator · Z–A</option>
+              <option value="method-asc">Method · A–Z</option>
+              <option value="method-desc">Method · Z–A</option>
+              <option value="robot-asc">Hardware · A–Z</option>
+              <option value="robot-desc">Hardware · Z–A</option>
+            </select></label
+          >
+        </div>
+        <p id="filter-note" class="filter-note" hidden></p>
+        <div id="load-error" class="empty-state" hidden role="alert">
+          <h2>The collection could not load.</h2>
+          <p>
+            Try reloading, or
+            <a href="./reviews.html">read all reviews here</a>.
+          </p>
+          <button id="retry" class="button">Reload page</button>
+        </div>
+        <div
+          id="table-wrap"
+          class="table-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="Paper results; scroll horizontally on smaller screens"
+        >
+          <table id="papers">
+            <caption class="sr-only">
+              Reviewed sim-to-real Franka papers. Select a paper to read its
+              full evidence review. Column buttons change sorting.
+            </caption>
+            <colgroup>
+              <col class="col-paper" />
+              <col class="col-score" />
+              <col class="col-sim" />
+              <col class="col-method" />
+              <col class="col-hardware" />
+              <col class="col-resources" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" data-sort="name">
+                  <button type="button">
+                    Paper & task <span aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th scope="col" data-sort="score" aria-sort="descending">
+                  <button type="button">
+                    Score <span aria-hidden="true">↓</span>
+                  </button>
+                </th>
+                <th scope="col" data-sort="simulator">
+                  <button type="button">
+                    Training simulator <span aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th scope="col" data-sort="method">
+                  <button type="button">
+                    Learning method <span aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th scope="col" data-sort="robot">
+                  <button type="button">
+                    Hardware <span aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th scope="col">Video & code</th>
+              </tr>
+            </thead>
+            <tbody id="paper-rows"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="no-results" hidden>
+          <span class="empty-symbol" aria-hidden="true">∅</span>
+          <h2>No papers match these filters.</h2>
+          <p>Try a broader keyword or clear a filter.</p>
+          <button id="empty-reset" class="button">Reset filters</button>
+        </div>
+        <div class="pagination" id="pagination" hidden>
+          <label for="page-size"
+            >Per page
+            <select id="page-size">
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="all">All</option>
+            </select></label
+          >
+          <div>
+            <button
+              id="previous"
+              class="button secondary"
+              aria-label="Previous page"
+            >
+              ← <span>Previous</span></button
+            ><span id="page-status"></span
+            ><button id="next" class="button secondary" aria-label="Next page">
+              <span>Next</span> →
+            </button>
+          </div>
+        </div>
+        <p class="table-note">
+          Select a paper for its full review. Multiple scores belong to
+          different settings; their highest score determines sort order only.
+          Unrated always appears after numeric scores. Resource labels retain
+          release limitations; a code link alone does not establish a complete
+          deployment stack. NR = not reported; — = no verified public resource link found.
+        </p>
+        <noscript
+          ><p class="noscript">
+            Search and filters require JavaScript.
+            <a href="./reviews.html"
+              >Read all papers and detailed reviews without JavaScript →</a
+            >
+          </p></noscript
+        >
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <p>
+        Real hardware. Reported evidence.
+        <span>No inferred model revisions.</span>
+      </p>
+      <p>
+        <a
+          href="https://github.com/refracta/real-frankas-only/blob/main/docs/SEARCH_AUDIT.md"
+          >Search audit ↗</a
+        ><a href="./reviews.html">All reviews</a>
+      </p>
+    </footer>
+    <dialog id="review-dialog" aria-labelledby="review-title">
+      <div class="dialog-header">
+        <span class="eyebrow">PAPER / EVIDENCE REVIEW</span
+        ><button
+          id="close-review"
+          class="button secondary"
+          aria-label="Close review"
+        >
+          Close <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="review-topline">
+          <span id="review-score"></span><span id="review-venue"></span>
+        </div>
+        <h2 id="review-title"></h2>
+        <p id="review-summary"></p>
+        <div id="review-links" class="review-links"></div>
+        <dl id="review-metadata" class="review-metadata"></dl>
+        <div id="review-content" class="review-content"></div>
+      </div>
+      <div class="dialog-footer">
+        <a id="review-permalink" href="./reviews.html">Standalone review ↗</a
+        ><button id="copy-link" class="button secondary">
+          Copy review link</button
+        ><span id="copy-status" role="status"></span>
+      </div>
+    </dialog>
+  </body>
+</html>
