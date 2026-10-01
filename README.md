@@ -6,83 +6,112 @@
 
 [Review criteria and scoring](docs/REVIEW_GUIDELINES.md) · [Search audit and unresolved evidence](docs/SEARCH_AUDIT.md)
 
+## Score key
+
+Scores apply to the selected task and policy setting. Where the evaluations are comparable, **retention = REAL performance / SIM performance × 100**.
+
+| Score | Meaning |
+| --- | --- |
+| **0** | Physical photos or demonstrations, but no quantitative REAL task results. |
+| **1** | Severe transfer gap: REAL performance is clearly below approximately 75% of SIM performance. |
+| **2** | REAL retains approximately 75% or more of SIM performance, but less than 90%. |
+| **3** | REAL retains at least 90% of SIM performance on a comparable evaluation. |
+| **4** | Meets score 3, with documented public task-policy code and well-organized physical photos/videos. |
+
+**Unrated** means REAL results are quantitative, but a comparable SIM result is unavailable. It is not score 0. Scores assess reported evidence, not independent reproduction; a high retention ratio does not necessarily mean high absolute success.
+
 ## Reviewed papers
 
-**71 distinct papers with physical Franka deployment**, checked against their full papers and official supporting materials. Twenty papers have a numerical score for the selected setting; fifty-one remain **Unrated** because a defensible SIM-to-REAL retention comparison is unavailable. Different tasks, preprints, and published versions of the same work are not counted as additional papers.
+**84 distinct papers with physical Franka deployment**, checked against their full papers and official supporting materials. Twenty-four papers have a numerical score for the selected setting; sixty remain **Unrated** because a defensible SIM-to-REAL retention comparison is unavailable. Different tasks, preprints, and published versions of the same work are not counted as additional papers.
 
-| Paper | Venue | Franka model | Task | Training simulator | Learning method | Score |
-| --- | --- | --- | --- | --- | --- | --- |
-| [AutoMate](#automate-2024) | RSS 2024 | Panda | Plug insertion; 20 assembly geometries, specialist policies | Isaac Gym / PhysX | RL: PPO with an imitation reward | **4** |
-| [Tactile Sensory](#tactile-sensory-2021) | IROS 2021 | Panda | Door opening with tactile feedback | MuJoCo | RL: TD3 | **2** |
-| [VSDR](#vsdr-2022) | ICRA 2022 | Panda | Visual cube grasping | robosuite / MuJoCo | RL: SAC; policy selection | Unrated |
-| [IndustReal](#industreal-2023) | RSS 2023 | Panda | Peg insertion | Isaac Gym / PhysX | RL: PPO | Unrated |
-| [RialTo](#rialto-2024) | RSS 2024 | Panda; FR3 | Shelf placement; toaster opening | Isaac Sim | BC + PPO + policy distillation | Unrated |
-| [Lang4Sim2Real](#lang4sim2real-2024) | RSS 2024 | Panda | Stacking, pick-and-place, wire wrapping | robosuite / MuJoCo | Language-aligned BC | Unrated |
-| [TRANSIC](#transic-2024) | CoRL 2024 | “Franka Emika 3” in paper | Furniture assembly skills | Isaac Gym Preview 4 / PhysX | PPO → BC; human-correction residual | Unrated |
-| [DPPO](#dppo-2025) | ICLR 2025 | Panda | One-leg furniture assembly | FurnitureBench / Isaac Gym | Diffusion Policy BC + PPO fine-tuning | **4** |
-| [FORGE](#forge-2025) | RA-L 2025 | Panda | Peg insertion, gear meshing, nut threading | Factory / Isaac Gym | Recurrent PPO | Unrated |
-| [MuJoCo Playground](#mujoco-playground-2025) | RSS 2025 demo; technical report | Panda | Block reorientation; visual cube picking | MuJoCo / MJX; Madrona for pixels | RL: PPO | Unrated |
-| [Watch Less, Feel More](#watch-less-feel-more-2025) | ICRA 2025 | Franka Emika; model not reported | OpenDrawer+ | Isaac Gym | PPO + history-based adaptation | **2**, task-level comparison |
-| [XMoP](#xmop-2025) | ICRA 2025 | FR3 | Collision-free reaching | PyBullet; synthetic planning data | IL: diffusion Transformer + learned collision model | Unrated |
-| [Fruit Harvesting](#fruit-harvesting-2025) | CASE 2025 | Panda | Strawberry-stem grasping with five distractors | FruitGym / MuJoCo | RL: DRM | **2**, plot estimate |
-| [PBRL](#pbrl-2025) | CASE 2025 | Panda | Nut picking | Isaac Gym | Population-based PPO | Unrated |
-| [DeGuV](#deguv-2025) | arXiv preprint, 2025 | Franka Emika; model not reported | Cube lifting | RL-ViGen / robosuite / MuJoCo | Visual RL: DrQv2-based DeGuV | **0** |
-| [X-Sim](#x-sim-2025) | CoRL 2025 | Franka; model not reported | Letter arrangement | ManiSkill / SAPIEN + 3DGS | PPO → Diffusion Policy BC | Unrated |
-| [Re³Sim](#re3sim-2026) | ICRA 2026 | FR3 | Bottle placement, cube stacking, vegetable placement | Isaac Sim + 3DGS | IL: ACT with DINOv2 | Unrated |
-| [Context-aware policies](#context-aware-policies-2026) | Robotics and Autonomous Systems, 2026 | Panda | Box pushing | AGX Dynamics | RL: SAC + LSTM context estimator | **2 / 1**, by setting |
-| [MolmoB0T](#molmob0t-2026) | arXiv preprint, 2026 | FR3 | Language-conditioned pick-and-place | MolmoSpaces / MuJoCo | IL: VLM + flow-matching action head | Unrated |
-| [Torque-controlled transfer](#torque-controlled-transfer-2026) | AIM 2026 | Panda | Target reaching with joint torques | MuJoCo; Gazebo for transfer testing | RL: TQC + dynamics identification | Unrated |
-| [Continuous control](#continuous-control-2022) | Autonomous Robots, 2022 | Panda | Grasp-and-lift with obstacle avoidance | robosuite / MuJoCo | RL: PPO; simulation fine-tuning | Unrated |
-| [Centralized dual-arm assembly](#centralized-dual-arm-assembly-2022) | Frontiers in Robotics and AI, 2022 | Two Pandas | Cooperative peg insertion | PyBullet | RL: SAC + HER | Unrated |
-| [Haptic object insertion](#haptic-object-insertion-2023) | ICRA 2023 | Panda | Insert a plate into a rack | robosuite / MuJoCo | RL: SAC | **4**, task-level comparison |
-| [Latent prediction](#latent-prediction-2023) | Frontiers in Robotics and AI, 2023 | Panda | Visual cube pushing | Gazebo | SAC + dynamics-aware VAE; real encoder adaptation | Unrated |
-| [Action-space study](#action-space-study-2024) | RA-L 2024 | Panda | Box pushing: joint velocity / joint position | Isaac Sim / PhysX, as named in paper | RL: PPO | **3 / 1**, by action space |
-| [Curriculum dual-arm assembly](#curriculum-dual-arm-assembly-2024) | Machines, 2024 | Two Pandas | Square peg insertion | robosuite / MuJoCo | RL: SAC + reverse curriculum | Unrated |
-| [Active Search](#active-search-2024) | IROS 2024 | FR3 | Find and retrieve an occluded object | PyBullet | RL: branching Q-networks + learned grasp proposals | Unrated |
-| [ResiP](#resip-2025) | ICRA 2025 | Panda | One-leg furniture assembly | Isaac Gym; Isaac Sim for rendering | Diffusion BC + residual PPO → visual BC | Unrated |
-| [ReBot](#rebot-2025) | IROS 2025 | Panda | Object-to-plate pick-and-place | Isaac Sim 4.1 / Isaac Lab | IL: Octo / OpenVLA fine-tuning on synthetic videos | Unrated |
-| [AnyTask](#anytask-2025) | arXiv preprint, 2025 | Franka; model not reported | Lifting, pushing, stacking, drawer manipulation | Isaac Lab / Isaac Sim | IL: 3D Diffusion Policy | Unrated |
-| [D²PPO](#d2ppo-2026) | AAAI 2026 | Panda | Bimanual Transport | robomimic / robosuite / MuJoCo | Diffusion BC with dispersive loss + PPO | **2** |
-| [FUNCanon](#funcanon-2026) | ICRA 2026 | Franka Emika; model not reported | Pick-and-place; pouring | RLBench / CoppeliaSim | IL: object-centric diffusion policy | Unrated |
-| [Sim-to-online RL](#sim-to-online-rl-2026) | arXiv preprint, 2026 | Panda | Visual cube picking | MuJoCo Playground / Brax | RL: SAC + BRO critic / DrQ; real fine-tuning | Unrated |
-| [AffordSim](#affordsim-2026) | arXiv preprint, 2026 | FR3 | Banana-to-plate placement | Isaac Sim + 3DGS backgrounds | IL: π0.5; BC / DP / ACT / VLA-adapter comparisons | **1**, task-level comparison |
-| [VLAJS](#vlajs-2026) | ICRA 2026 RL4IL workshop | Panda | Cube lifting, pick-and-place, peg reorientation | ManiSkill / SAPIEN | RL: PPO with temporary VLA guidance | Unrated |
-| [MATCH](#match-2026) | arXiv preprint, 2026 | FR3 | Fragile peg insertion under pose uncertainty | Isaac Lab / Isaac Sim | RL: PPO with hybrid position/force actions | Unrated |
-| [World-action transfer](#world-action-transfer-2026) | CVPR 2026 EAI workshop | FR3 | Lifting, drawer opening, strawberry-to-bowl placement | GPU simulator; cites Isaac Gym, implementation unclear | IL: Cosmos Policy video diffusion | Unrated |
-| [Object-centric residual RL](#object-centric-residual-rl-2026) | arXiv preprint, 2026 | FR3 | Cube-to-bowl pick-and-place | MuJoCo | TD3 residual over GR00T-N1.5 | Unrated |
-| [MoDex](#modex-2026) | arXiv preprint, 2026 | Panda + Allegro Hand | Sequential multi-object grasping | robosuite / MuJoCo | OS-conditioned Diffusion Policy + DPPO | Unrated |
-| [TAM](#tam-2026) | CoRL 2026, accepted | Panda | Visual box pushing | MuJoCo / MJX | PPO → point-cloud BC; supervised torque adaptation | **3**, ideal-SIM reference |
-| [VICES](#vices-2019) | IROS 2019 | Panda | Whiteboard wiping | robosuite / MuJoCo | RL: PPO; variable impedance actions | Unrated |
-| [Bolting](#bolting-2020) | IROS 2020 | Panda | M48 nut threading, 3 mm bolt offset | Custom contact simulator | RL: PPO over an LQT controller | **3** |
-| [DROPO](#dropo-2023) | Robotics and Autonomous Systems, 2023 | Panda | Box pushing with displaced center of mass | Pushing backend not explicit; framework uses MuJoCo | RL + offline domain-randomization fitting; PPO/SAC assignment unresolved | Unrated |
-| [ASID](#asid-2024) | ICLR 2024 | Panda | Balance a rod with unknown mass distribution | MuJoCo | PPO exploration + CEM task-policy search | Unrated |
-| [GenSim2](#gensim2-2024) | CoRL 2024 | FR3 | Eight articulated-object tasks | SAPIEN | IL: multitask proprioceptive point-cloud Transformer | Unrated |
-| [Get a Grip](#get-a-grip-2024) | CoRL 2024 | FR3 + Allegro Hand | Grasp and lift unseen objects | Isaac Gym | Diffusion grasp sampler + supervised evaluator | Unrated |
-| [Exploration-policy transfer](#exploration-policy-transfer-2024) | NeurIPS 2024 | Panda | Push a puck to the table edge | Custom Franka simulator; pushing engine not explicit | RL: SAC with learned exploration ensemble; real fine-tuning | Unrated |
-| [TacSL](#tacsl-2025) | IEEE Transactions on Robotics, 2025 | Franka; model not reported | Tactile peg insertion | TacSL / Isaac Gym / PhysX | Recurrent PPO; asymmetric actor-critic distillation | Unrated |
-| [SimLauncher](#simlauncher-2025) | IROS 2025 | Franka; model not reported | Banana-to-scale pick-and-place | Isaac Gym + 3DGS rendering | RL teacher → visual BC → RLPD with BC action proposals | Unrated |
-| [D3P](#d3p-2026) | IROS 2026 | Franka; model not reported | Square nut assembly | robomimic / robosuite / MuJoCo | Diffusion BC + DPPO; PPO denoising adaptor | **0**, task outcomes qualitative |
-| [CLASH](#clash-2026) | arXiv preprint, 2026 | Franka; model not reported | Sequential striking along three routes | MuJoCo + learned collision model | RL: SAC | Unrated |
-| [RFS](#rfs-2026) | ICLR 2026 | Franka + LEAP Hand; model not reported | Dexterous grasping | Isaac Lab / Isaac Sim | Flow BC + PPO → point-cloud distillation; offline TD3+BC | Unrated |
-| [Tac2Real](#tac2real-2026) | arXiv preprint, 2026 | Panda | Tactile peg insertion | Isaac Lab + PNCG-IPC tactile simulation | RL: PPO | Unrated |
-| [CaP-X / CaP-RL](#cap-x-2026) | ICML 2026 | Panda | Cube lifting with generated control programs | CaP-Gym / robosuite / MuJoCo | GRPO post-training of Qwen2.5-Coder-7B-Instruct | **3**, task-level comparison |
-| [Tune to Learn](#tune-to-learn-2026) | RSS 2026 | FR3 | Joint-space reaching | Isaac Lab / Isaac Sim | RL: PPO (SKRL); gain-specific system identification | Unrated |
-| [OpenCR-MuJoCo](#opencr-mujoco-2026) | arXiv preprint, 2026 | Panda + tendon-driven continuum tool | Wrap, lift and deposit a cylinder | MuJoCo | IL: state-based ACT | **3** |
-| [D-SafeMPC](#d-safempc-2026) | IROS 2026 | Franka; model not reported | Reach a goal through static obstacles | D3IL / MuJoCo | Diffusion trajectory imitation + guided MPC | **0** |
-| [Collision mesh poisoning](#collision-mesh-poisoning-2026) | arXiv preprint, 2026 | Panda | Controlled execution of learned grasps on three objects | Simulator not named in inspected paper | RL: PPO (RSL-RL) | Unrated |
-| [DROID](#droid-2021) | RA-L 2021 | Franka Emika; model not reported | Open a cabinet door beyond 30° | MuJoCo | RL: PPO; CMA-ES fits randomization distributions | **2**, success-rate metric |
-| [CRSfD](#crsfd-2022) | CoRL 2022; PMLR 2023 | Panda | Insert pegs shaped as digits 0–4 | Simulator not named in inspected paper/supplement | RL: SACfD with conservative reward shaping | Unrated |
-| [Pre/post-contact decomposition](#prepost-contact-decomposition-2023) | IROS 2023 | Panda | Push and reorient a box over a bump | Isaac Gym | RL: two PPO policies; pre-contact policy distillation | Unrated |
-| [AdaptSim](#adaptsim-2023) | CoRL 2023 | Panda | Dynamically push a heavy bottle to a target | Drake | Off-policy task-primitive learning; branching Double Q-learning adapts SIM | Unrated |
-| [CORN](#corn-2024) | ICLR 2024 | Panda | Nonprehensile object pose rearrangement | Isaac Gym | Contact representation pretraining + PPO → DAgger | Unrated |
-| [IntervenGen](#intervengen-2024) | IROS 2024 | FR3 / Panda, conflicting sources | Grasp a block despite pose-estimation errors | robosuite / MuJoCo | IL: BC-RNN on synthetic demonstrations/interventions | **3** |
-| [QD-Grasp transfer / TR-ME](#qd-grasp-transfer-2024) | ICRA 2024 | FR3; Fig. 1 caption says Panda | Execute optimized reach-and-grasp trajectories | PyBullet | Evolutionary policy search: MAP-Elites / TR-ME | **2**, selected-grasp retention |
-| [SGFT](#sgft-2025) | ICLR 2025 | FR3 | Hammer a nail into a board | Hammering backend not explicit in inspected sources | SAC pretraining → model-based SGFT; real fine-tuning | Unrated |
-| [HAMNet / UniCORN](#hamnet-2025) | RSS 2025 | FR3 | Nonprehensile rearrangement in nine environments | Isaac Gym | Contact representation pretraining + modular PPO → DAgger | Unrated |
-| [DyWA](#dywa-2025) | ICCV 2025 | Panda | Rearrange objects from a single depth view | Isaac Gym | PPO teacher → DAgger world-action model | Unrated |
-| [DAPL](#dapl-2026) | RSS 2026 | FR3 | Rearrange an object amid clutter | Isaac Lab / PhysX | Dynamics representation + PPO → student distillation | Unrated |
-| [GOMP](#gomp-2026) | ECCV 2026 | FR3 | Manipulate an object into a graspable pose, then grasp | Isaac Lab / Isaac Sim | PPO → online BC distillation with graspability prediction | Unrated |
-| [PA-RL](#pa-rl-2026) | arXiv preprint, 2026 | Panda | Cylindrical peg insertion | MuJoCo | RL: SAC over potential-field parameters | Unrated |
+| Paper | Venue | Franka model | End-effector | Task | Training simulator | Learning method | Score |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [AutoMate](#automate-2024) | RSS 2024 | Panda | Parallel-jaw gripper; model NR | Plug insertion; 20 assembly geometries, specialist policies | Isaac Gym / PhysX | RL: PPO with an imitation reward | **4** |
+| [Tactile Sensory](#tactile-sensory-2021) | IROS 2021 | Panda | Modified gripper: custom tactile fingertips | Door opening with tactile feedback | MuJoCo | RL: TD3 | **2** |
+| [VSDR](#vsdr-2022) | ICRA 2022 | Panda | Parallel-jaw gripper; model NR | Visual cube grasping | robosuite / MuJoCo | RL: SAC; policy selection | Unrated |
+| [IndustReal](#industreal-2023) | RSS 2023 | Panda | Gripper; model/modifications NR | Peg insertion | Isaac Gym / PhysX | RL: PPO | Unrated |
+| [RialTo](#rialto-2024) | RSS 2024 | Panda; FR3 | Parallel-jaw grippers; models NR | Shelf placement; toaster opening | Isaac Sim | BC + PPO + policy distillation | Unrated |
+| [Lang4Sim2Real](#lang4sim2real-2024) | RSS 2024 | Panda | Parallel-jaw gripper; model NR | Stacking, pick-and-place, wire wrapping | robosuite / MuJoCo | Language-aligned BC | Unrated |
+| [TRANSIC](#transic-2024) | CoRL 2024 | “Franka Emika 3” in paper | Gripper; model/modifications NR | Furniture assembly skills | Isaac Gym Preview 4 / PhysX | PPO → BC; human-correction residual | Unrated |
+| [DPPO](#dppo-2025) | ICLR 2025 | Panda | Parallel-jaw gripper; model NR | One-leg furniture assembly | FurnitureBench / Isaac Gym | Diffusion Policy BC + PPO fine-tuning | **4** |
+| [FORGE](#forge-2025) | RA-L 2025 | Panda | Gripper holding assembly parts; model NR | Peg insertion, gear meshing, nut threading | Factory / Isaac Gym | Recurrent PPO | Unrated |
+| [MuJoCo Playground](#mujoco-playground-2025) | RSS 2025 demo; technical report | Panda | Robotiq (reorientation); picking gripper NR | Block reorientation; visual cube picking | MuJoCo / MJX; Madrona for pixels | RL: PPO | Unrated |
+| [Watch Less, Feel More](#watch-less-feel-more-2025) | ICRA 2025 | Franka Emika; model not reported | Gripper; model/modifications NR | OpenDrawer+ | Isaac Gym | PPO + history-based adaptation | **2**, task-level comparison |
+| [XMoP](#xmop-2025) | ICRA 2025 | FR3 | Not reported (reaching task) | Collision-free reaching | PyBullet; synthetic planning data | IL: diffusion Transformer + learned collision model | Unrated |
+| [Fruit Harvesting](#fruit-harvesting-2025) | CASE 2025 | Panda | Parallel-jaw gripper; model NR | Strawberry-stem grasping with five distractors | FruitGym / MuJoCo | RL: DRM | **2**, plot estimate |
+| [PBRL](#pbrl-2025) | CASE 2025 | Panda | Gripper; model/modifications NR | Nut picking | Isaac Gym | Population-based PPO | Unrated |
+| [DeGuV](#deguv-2025) | arXiv preprint, 2025 | Franka Emika; model not reported | Gripper; model/modifications NR | Cube lifting | RL-ViGen / robosuite / MuJoCo | Visual RL: DrQv2-based DeGuV | **0** |
+| [X-Sim](#x-sim-2025) | CoRL 2025 | Franka; model not reported | Gripper; model/modifications NR | Letter arrangement | ManiSkill / SAPIEN + 3DGS | PPO → Diffusion Policy BC | Unrated |
+| [Re³Sim](#re3sim-2026) | ICRA 2026 | FR3 | Parallel-jaw gripper; model NR | Bottle placement, cube stacking, vegetable placement | Isaac Sim + 3DGS | IL: ACT with DINOv2 | Unrated |
+| [Context-aware policies](#context-aware-policies-2026) | Robotics and Autonomous Systems, 2026 | Panda | Cylindrical pushing tool | Box pushing | AGX Dynamics | RL: SAC + LSTM context estimator | **2 / 1**, by setting |
+| [MolmoB0T](#molmob0t-2026) | arXiv preprint, 2026 | FR3 | Robotiq 2F-85 parallel-jaw gripper | Language-conditioned pick-and-place | MolmoSpaces / MuJoCo | IL: VLM + flow-matching action head | Unrated |
+| [Torque-controlled transfer](#torque-controlled-transfer-2026) | AIM 2026 | Panda | Not reported (reaching task) | Target reaching with joint torques | MuJoCo; Gazebo for transfer testing | RL: TQC + dynamics identification | Unrated |
+| [Continuous control](#continuous-control-2022) | Autonomous Robots, 2022 | Panda | Parallel-jaw gripper; model NR | Grasp-and-lift with obstacle avoidance | robosuite / MuJoCo | RL: PPO; simulation fine-tuning | Unrated |
+| [Centralized dual-arm assembly](#centralized-dual-arm-assembly-2022) | Frontiers in Robotics and AI, 2022 | Two Pandas | Grippers with peg/hole fixtures | Cooperative peg insertion | PyBullet | RL: SAC + HER | Unrated |
+| [Haptic object insertion](#haptic-object-insertion-2023) | ICRA 2023 | Panda | Soft Robotics mGrip soft gripper | Insert a plate into a rack | robosuite / MuJoCo | RL: SAC | **4**, task-level comparison |
+| [Latent prediction](#latent-prediction-2023) | Frontiers in Robotics and AI, 2023 | Panda | Gripper; model/modifications NR | Visual cube pushing | Gazebo | SAC + dynamics-aware VAE; real encoder adaptation | Unrated |
+| [Action-space study](#action-space-study-2024) | RA-L 2024 | Panda | Not reported (pushing task) | Box pushing: joint velocity / joint position | Isaac Sim / PhysX, as named in paper | RL: PPO | **3 / 1**, by action space |
+| [Curriculum dual-arm assembly](#curriculum-dual-arm-assembly-2024) | Machines, 2024 | Two Pandas | Peg/hole attachments; gripper models NR | Square peg insertion | robosuite / MuJoCo | RL: SAC + reverse curriculum | Unrated |
+| [Active Search](#active-search-2024) | IROS 2024 | FR3 | Parallel-jaw gripper; model NR | Find and retrieve an occluded object | PyBullet | RL: branching Q-networks + learned grasp proposals | Unrated |
+| [ResiP](#resip-2025) | ICRA 2025 | Panda | Parallel-jaw gripper; model NR | One-leg furniture assembly | Isaac Gym; Isaac Sim for rendering | Diffusion BC + residual PPO → visual BC | Unrated |
+| [ReBot](#rebot-2025) | IROS 2025 | Panda | Robotiq 2F-85 parallel-jaw gripper | Object-to-plate pick-and-place | Isaac Sim 4.1 / Isaac Lab | IL: Octo / OpenVLA fine-tuning on synthetic videos | Unrated |
+| [AnyTask](#anytask-2025) | arXiv preprint, 2025 | Franka; model not reported | Parallel-jaw gripper; model NR | Lifting, pushing, stacking, drawer manipulation | Isaac Lab / Isaac Sim | IL: 3D Diffusion Policy | Unrated |
+| [D²PPO](#d2ppo-2026) | AAAI 2026 | Panda | Grippers; models/modifications NR | Bimanual Transport | robomimic / robosuite / MuJoCo | Diffusion BC with dispersive loss + PPO | **2** |
+| [FUNCanon](#funcanon-2026) | ICRA 2026 | Franka Emika; model not reported | Gripper; model/modifications NR | Pick-and-place; pouring | RLBench / CoppeliaSim | IL: object-centric diffusion policy | Unrated |
+| [Sim-to-online RL](#sim-to-online-rl-2026) | arXiv preprint, 2026 | Panda | Parallel-jaw gripper; model NR | Visual cube picking | MuJoCo Playground / Brax | RL: SAC + BRO critic / DrQ; real fine-tuning | Unrated |
+| [AffordSim](#affordsim-2026) | arXiv preprint, 2026 | FR3 | Franka Hand (parallel-jaw) | Banana-to-plate placement | Isaac Sim + 3DGS backgrounds | IL: π0.5; BC / DP / ACT / VLA-adapter comparisons | **1**, task-level comparison |
+| [VLAJS](#vlajs-2026) | ICRA 2026 RL4IL workshop | Panda | Parallel-jaw gripper; model NR | Cube lifting, pick-and-place, peg reorientation | ManiSkill / SAPIEN | RL: PPO with temporary VLA guidance | Unrated |
+| [MATCH](#match-2026) | arXiv preprint, 2026 | FR3 | Gripper holding peg; model NR | Fragile peg insertion under pose uncertainty | Isaac Lab / Isaac Sim | RL: PPO with hybrid position/force actions | Unrated |
+| [World-action transfer](#world-action-transfer-2026) | CVPR 2026 EAI workshop | FR3 | Gripper; model/modifications NR | Lifting, drawer opening, strawberry-to-bowl placement | GPU simulator; cites Isaac Gym, implementation unclear | IL: Cosmos Policy video diffusion | Unrated |
+| [Object-centric residual RL](#object-centric-residual-rl-2026) | arXiv preprint, 2026 | FR3 | Gripper; model/modifications NR | Cube-to-bowl pick-and-place | MuJoCo | TD3 residual over GR00T-N1.5 | Unrated |
+| [MoDex](#modex-2026) | arXiv preprint, 2026 | Panda + Allegro Hand | Allegro dexterous hand (16 DoF) | Sequential multi-object grasping | robosuite / MuJoCo | OS-conditioned Diffusion Policy + DPPO | Unrated |
+| [TAM](#tam-2026) | CoRL 2026, accepted | Panda | Not reported (pushing task) | Visual box pushing | MuJoCo / MJX | PPO → point-cloud BC; supervised torque adaptation | **3**, ideal-SIM reference |
+| [VICES](#vices-2019) | IROS 2019 | Panda | Wiping tool | Whiteboard wiping | robosuite / MuJoCo | RL: PPO; variable impedance actions | Unrated |
+| [Bolting](#bolting-2020) | IROS 2020 | Panda | Rotary actuator + nut fixture + F/T sensor | M48 nut threading, 3 mm bolt offset | Custom contact simulator | RL: PPO over an LQT controller | **3** |
+| [DROPO](#dropo-2023) | Robotics and Autonomous Systems, 2023 | Panda | Pushing tool; design/model NR | Box pushing with displaced center of mass | Pushing backend not explicit; framework uses MuJoCo | RL + offline domain-randomization fitting; PPO/SAC assignment unresolved | Unrated |
+| [ASID](#asid-2024) | ICLR 2024 | Panda | Gripper; model/modifications NR | Balance a rod with unknown mass distribution | MuJoCo | PPO exploration + CEM task-policy search | Unrated |
+| [GenSim2](#gensim2-2024) | CoRL 2024 | FR3 | Modified deformable TPU parallel gripper | Eight articulated-object tasks | SAPIEN | IL: multitask proprioceptive point-cloud Transformer | Unrated |
+| [Get a Grip](#get-a-grip-2024) | CoRL 2024 | FR3 + Allegro Hand | Allegro dexterous hand | Grasp and lift unseen objects | Isaac Gym | Diffusion grasp sampler + supervised evaluator | Unrated |
+| [Exploration-policy transfer](#exploration-policy-transfer-2024) | NeurIPS 2024 | Panda | Parallel-jaw gripper; model NR | Push a puck to the table edge | Custom Franka simulator; pushing engine not explicit | RL: SAC with learned exploration ensemble; real fine-tuning | Unrated |
+| [TacSL](#tacsl-2025) | IEEE Transactions on Robotics, 2025 | Franka; model not reported | Parallel-jaw gripper + GelSight fingertips | Tactile peg insertion | TacSL / Isaac Gym / PhysX | Recurrent PPO; asymmetric actor-critic distillation | Unrated |
+| [SimLauncher](#simlauncher-2025) | IROS 2025 | Franka; model not reported | Franka Hand (parallel-jaw) | Banana-to-scale pick-and-place | Isaac Gym + 3DGS rendering | RL teacher → visual BC → RLPD with BC action proposals | Unrated |
+| [D3P](#d3p-2026) | IROS 2026 | Franka; model not reported | Gripper; model/modifications NR | Square nut assembly | robomimic / robosuite / MuJoCo | Diffusion BC + DPPO; PPO denoising adaptor | **0**, task outcomes qualitative |
+| [CLASH](#clash-2026) | arXiv preprint, 2026 | Franka; model not reported | Held impact tool; gripper model NR | Sequential striking along three routes | MuJoCo + learned collision model | RL: SAC | Unrated |
+| [RFS](#rfs-2026) | ICLR 2026 | Franka + LEAP Hand; model not reported | LEAP dexterous hand | Dexterous grasping | Isaac Lab / Isaac Sim | Flow BC + PPO → point-cloud distillation; offline TD3+BC | Unrated |
+| [Tac2Real](#tac2real-2026) | arXiv preprint, 2026 | Panda | Modified Franka gripper: two GelSight Minis | Tactile peg insertion | Isaac Lab + PNCG-IPC tactile simulation | RL: PPO | Unrated |
+| [CaP-X / CaP-RL](#cap-x-2026) | ICML 2026 | Panda | Robotiq gripper; model NR | Cube lifting with generated control programs | CaP-Gym / robosuite / MuJoCo | GRPO post-training of Qwen2.5-Coder-7B-Instruct | **3**, task-level comparison |
+| [Tune to Learn](#tune-to-learn-2026) | RSS 2026 | FR3 | Not reported (reaching task) | Joint-space reaching | Isaac Lab / Isaac Sim | RL: PPO (SKRL); gain-specific system identification | Unrated |
+| [OpenCR-MuJoCo](#opencr-mujoco-2026) | arXiv preprint, 2026 | Panda + tendon-driven continuum tool | Custom 3-segment, 9-tendon continuum tool | Wrap, lift and deposit a cylinder | MuJoCo | IL: state-based ACT | **3** |
+| [D-SafeMPC](#d-safempc-2026) | IROS 2026 | Franka; model not reported | Not reported (reaching task) | Reach a goal through static obstacles | D3IL / MuJoCo | Diffusion trajectory imitation + guided MPC | **0** |
+| [Collision mesh poisoning](#collision-mesh-poisoning-2026) | arXiv preprint, 2026 | Panda | Gripper; model/modifications NR | Controlled execution of learned grasps on three objects | Simulator not named in inspected paper | RL: PPO (RSL-RL) | Unrated |
+| [DROID](#droid-2021) | RA-L 2021 | Franka Emika; model not reported | Two-finger gripper; model NR | Open a cabinet door beyond 30° | MuJoCo | RL: PPO; CMA-ES fits randomization distributions | **2**, success-rate metric |
+| [CRSfD](#crsfd-2022) | CoRL 2022; PMLR 2023 | Panda | 3D-printed peg; mount/gripper details NR | Insert pegs shaped as digits 0–4 | Simulator not named in inspected paper/supplement | RL: SACfD with conservative reward shaping | Unrated |
+| [Pre/post-contact decomposition](#prepost-contact-decomposition-2023) | IROS 2023 | Panda | Gripper with high-friction glove | Push and reorient a box over a bump | Isaac Gym | RL: two PPO policies; pre-contact policy distillation | Unrated |
+| [AdaptSim](#adaptsim-2023) | CoRL 2023 | Panda | Custom printed plate pusher replacing gripper | Dynamically push a heavy bottle to a target | Drake | Off-policy task-primitive learning; branching Double Q-learning adapts SIM | Unrated |
+| [CORN](#corn-2024) | ICLR 2024 | Panda | Gripper with high-friction glove | Nonprehensile object pose rearrangement | Isaac Gym | Contact representation pretraining + PPO → DAgger | Unrated |
+| [IntervenGen](#intervengen-2024) | IROS 2024 | FR3 / Panda, conflicting sources | FR3 gripper in prose; Panda label conflicts | Grasp a block despite pose-estimation errors | robosuite / MuJoCo | IL: BC-RNN on synthetic demonstrations/interventions | **3** |
+| [QD-Grasp transfer / TR-ME](#qd-grasp-transfer-2024) | ICRA 2024 | FR3; Fig. 1 caption says Panda | Standard Franka parallel-jaw gripper | Execute optimized reach-and-grasp trajectories | PyBullet | Evolutionary policy search: MAP-Elites / TR-ME | **2**, selected-grasp retention |
+| [SGFT](#sgft-2025) | ICLR 2025 | FR3 | Parallel-jaw gripper holding a hammer | Hammer a nail into a board | Hammering backend not explicit in inspected sources | SAC pretraining → model-based SGFT; real fine-tuning | Unrated |
+| [HAMNet / UniCORN](#hamnet-2025) | RSS 2025 | FR3 | Narrow replacement gripper + friction glove | Nonprehensile rearrangement in nine environments | Isaac Gym | Contact representation pretraining + modular PPO → DAgger | Unrated |
+| [DyWA](#dywa-2025) | ICCV 2025 | Panda | Gripper; model/modifications NR | Rearrange objects from a single depth view | Isaac Gym | PPO teacher → DAgger world-action model | Unrated |
+| [DAPL](#dapl-2026) | RSS 2026 | FR3 | Gripper; model/modifications NR | Rearrange an object amid clutter | Isaac Lab / PhysX | Dynamics representation + PPO → student distillation | Unrated |
+| [GOMP](#gomp-2026) | ECCV 2026 | FR3 | Standard parallel-jaw gripper | Manipulate an object into a graspable pose, then grasp | Isaac Lab / Isaac Sim | PPO → online BC distillation with graspability prediction | Unrated |
+| [PA-RL](#pa-rl-2026) | arXiv preprint, 2026 | Panda | Cylindrical peg + ATI F/T sensor; mount NR | Cylindrical peg insertion | MuJoCo | RL: SAC over potential-field parameters | Unrated |
+| [SimOpt](#simopt-2019) | ICRA 2019 | Panda | Parallel-jaw gripper; model NR | Drawer opening | NVIDIA FleX | PPO; real-rollout adaptation of SIM randomization | Unrated |
+| [VGN](#vgn-2020) | CoRL 2020; PMLR 2021 | Panda | Parallel-jaw gripper; model NR | Grasp objects out of clutter | PyBullet | Self-supervised 3D CNN grasp prediction | Unrated |
+| [CREST](#crest-2021) | ICRA 2021 | Panda | Parallel-jaw gripper; model NR | Block stacking | Custom approximate internal simulator | PPO over primitive parameters; causal structure learning | Unrated |
+| [GIGA](#giga-2021) | RSS 2021 | Panda | Parallel-jaw gripper; model NR | Grasp objects out of packed clutter | PyBullet | Self-supervised implicit grasp/occupancy networks | Unrated |
+| [RL with traditional controls](#rl-with-traditional-controls-2023) | Robotics, 2023 | Panda | Parallel-jaw gripper; model NR | Pick-and-place with obstacle avoidance | PyBullet 3.2.1 | RL: PPO; synchronized SIM/REAL execution | Unrated |
+| [FluidLab](#fluidlab-2023) | ICLR 2023 | Franka Emika; model not reported | Parallel-jaw gripper holding a stirring tool | Latte art by stirring | FluidEngine / Taichi | Differentiable trajectory optimization | **0** |
+| [Plug-and-play grasping](#plug-and-play-grasping-2024) | ICRA 2024 MoMa.v2 workshop | FR3 | Parallel-jaw gripper; model NR | Vision-guided reach-and-grasp | PyBullet | Evolutionary trajectory search: MAP-Elites / ME-scs | Unrated |
+| [QD-Grasp 6DoF](#qd-grasp-6dof-2024) | IROS 2024 | FR3; Panda gripper | Panda parallel-jaw gripper (selected setting) | Execute optimized 6-DoF grasps | PyBullet | Evolutionary grasp search: MAP-Elites / ME-scs | **4**, selected-grasp retention |
+| [GraspLDM](#graspldm-2024) | IEEE Access, 2024 | FR3 | Franka Hand (parallel-jaw) | Grasp unseen objects | ACRONYM / NVIDIA FleX training data; Isaac Gym evaluation | VAE + latent diffusion; grasp classifier | Unrated |
+| [GCS tactile transfer](#gcs-tactile-transfer-2026) | ICRA 2026 | Franka; FR3 gripper specified, arm model not reported | FR3 gripper + custom magnetic-sensor fingers | Six blind insertion variants | robosuite / MuJoCo | RL: asymmetric SAC; tactile randomization | **2** |
+| [NeuralTouch](#neuraltouch-2026) | IEEE/ASME Transactions on Mechatronics, 2026 | Panda | Franka gripper + custom TacTip fingers | Tactile bolt/plug/USB extraction and insertion | Tactile Gym 2.0 / PyBullet | PPO tactile refinement + neural descriptors; real-to-sim pix2pix | **1**, task-level comparison |
+| [DRIS reactive catching](#dris-reactive-catching-2026) | RSS 2026 | FR3 | Custom printed plate with neoprene padding | Catch and retain a moving ball on a plate | ManiSkill3 | RL: PPO + domain-randomization instance encoder | Unrated |
+| [Visual action-space benchmark](#visual-action-space-benchmark-2026) | arXiv preprint, 2026 | Panda | Parallel-jaw gripper; model NR | Visual cuboid picking with joint-velocity actions | MuJoCo | RL: PPO | Unrated |
+
+The **End-effector** column describes the physical setup for the reviewed task: gripper, modified fingers/sensors, dexterous hand or task tool. **NR = not reported in the checked sources**; a parallel-jaw label alone does not establish a stock, unmodified gripper. **Franka Hand** is the commercial parallel-jaw gripper, distinct from an Allegro or LEAP dexterous hand. Held tools and mounted attachments are identified separately where the source allows.
 
 No reviewed source explicitly identifies **FR3 2.1**. Hardware revisions are **not reported** unless stated below. “Franka Emika 3” is preserved as the TRANSIC paper's wording, without silently relabeling it Panda or a particular FR3 revision.
 
@@ -559,10 +588,10 @@ Studies how a simulation-trained visual picking policy improves through subseque
 Generates affordance-guided simulation demonstrations and trains visual policies that execute physical manipulation tasks.
 
 - **DOI / venue:** [10.48550/arXiv.2604.11674](https://doi.org/10.48550/arXiv.2604.11674) **(preprint DOI)** · arXiv preprint, 2026; published venue not verified.
-- **Robot / learning:** **FR3**, wrist/third-person RGB and proprioception; hardware sensor/gripper models unspecified. Isaac Sim with 3DGS backgrounds; selected **π0.5 imitation fine-tuning**, 300 synthetic demonstrations/task. No real-world policy fine-tuning.
+- **Robot / learning:** **FR3**, **Franka Hand parallel-jaw gripper**, wrist/third-person RealSense D435 cameras and proprioception, as specified in Appendix M. Isaac Sim with 3DGS backgrounds; selected **π0.5 imitation fine-tuning**, 300 synthetic demonstrations/task. No real-world policy fine-tuning.
 - **SIM → REAL:** Banana-to-plate: **93/100 = 93% → 4/10 = 40%**, retention **43.01%**. This uses the task-specific π0.5 rows of Tables 2/3, not their different-suite averages.
 - **Score: 1, task-level comparison.** The physical success rate drops substantially. SIM varies object pose with fixed appearance; REAL uses a reconstructed physical workspace. Matched sampled poses and uncertainty are not reported; ten physical attempts limit precision.
-- **Evidence:** [§§4.2/4.4, Tables 2/3, PDF pp. 8–9](https://arxiv.org/pdf/2604.11674v2#page=8).
+- **Evidence:** [§§4.2/4.4, Tables 2/3, PDF pp. 8–9](https://arxiv.org/pdf/2604.11674v2#page=8) · [Physical hardware, Appendix M, p. 21](https://arxiv.org/pdf/2604.11674v2#page=21).
 - **Video / GitHub:** Real task photos in Fig. 6; official public video and task-specific GitHub source not located.
 - **Last reviewed:** 2026-10-01.
 
@@ -1114,4 +1143,199 @@ Learns potential-field parameters that guide compliant peg insertion through for
 - **Score: Unrated.** SIM uses goal offsets of ±50 mm, estimation noise and repeated trials. Fig. 7 does not establish matching physical offset magnitudes, noise or the corresponding deployed checkpoint. The two 100% figures alone do not establish retention.
 - **Evidence / photos:** [§IV, Figs. 3/5/7, PDF pp. 5–8](https://arxiv.org/pdf/2609.21609v1#page=5).
 - **Video / GitHub:** The paper references a supplementary video, but an official public URL and task-specific GitHub release were not located in the checked sources.
+- **Last reviewed:** 2026-10-01.
+
+### SimOpt (2019)
+
+**Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience**
+
+Uses physical rollouts to adjust simulation randomization, then retrains a simulated policy that opens a real drawer.
+
+- **DOI / venue:** [10.1109/ICRA.2019.8793789](https://doi.org/10.1109/ICRA.2019.8793789) · ICRA 2019.
+- **Robot / learning:** **Panda**, parallel-jaw gripper and DART depth-based tracking; **NVIDIA FleX, PPO**. The policy commands joint velocities and the gripper.
+- **Transfer:** SimOpt updates the randomization distribution using three physical rollouts per iteration, followed by policy training in SIM. This uses real interaction data without direct physical task-policy optimization.
+- **SIM / REAL:** Drawer opening succeeds in **20/20** physical trials after one SimOpt update. SIM learning curves do not supply a matching success rate for the deployed drawer policy. The paper's **90% swing-peg result belongs to ABB YuMi**, not Franka.
+- **Score: Unrated.** Quantitative deployment is established; drawer-policy retention is unavailable.
+- **Evidence:** [§IV-A/B/D, Fig. 8, PDF pp. 4–6](https://arxiv.org/pdf/1810.05687v4#page=4).
+- **Video / GitHub:** [Official video](https://www.youtube.com/watch?v=nilcJY5Kdt8) · [Project](https://sites.google.com/view/simopt). Public task-specific source not located in the checked paper, project and title/author searches.
+- **Last reviewed:** 2026-10-01.
+
+### VGN (2020)
+
+**Volumetric Grasping Network: Real-time 6 DOF Grasp Detection in Clutter**
+
+Learns grasp quality, orientation and width from simulated trials, then clears physical clutter through repeated grasp proposals.
+
+- **DOI / venue:** [10.48550/arXiv.2101.01132](https://doi.org/10.48550/arXiv.2101.01132) **(preprint DOI)** · [CoRL 2020; PMLR volume published 2021](https://proceedings.mlr.press/v155/breyer21a.html).
+- **Robot / learning:** **Panda**, parallel-jaw gripper and wrist-mounted RealSense D435; **PyBullet**, self-supervised 3D CNN on simulated grasp outcomes. TSDF input; predicted grasps use a programmed approach, close and transport sequence.
+- **Transfer:** SIM-trained network without real fine-tuning. REAL selects the highest eligible grasp and scans continuously; SIM samples eligible grasps and uses six rendered views.
+- **SIM / REAL:** SIM five-object pile grasp success is **62.3%** at quality threshold **0.90**, over 200 rounds. REAL uses **ten six-object rounds**: **55 objects removed in 68 attempts**, with grasp success printed as **80%**, and **55/60 = 91.7%** objects removed, printed as 92%.
+- **Score: Unrated.** Object counts, grasp selection and observation/execution protocols differ. The physical counts alone imply 80.9% per attempt; retain the paper's differing printed percentage explicitly.
+- **Evidence:** [§§5.1–5.3, Table 1 and Fig. 4, PDF pp. 5–7](https://arxiv.org/pdf/2101.01132v1#page=5).
+- **Video / GitHub:** [Official video](https://youtu.be/FXjvFDcV6E0) · [Data generation, training, SIM evaluation and Panda ROS instructions](https://github.com/ethz-asl/vgn).
+- **Last reviewed:** 2026-10-01.
+
+### CREST (2021)
+
+**Causal Reasoning in Simulation for Structure and Transfer Learning of Robot Manipulation Policies**
+
+Learns which scene variables matter for a stacking primitive and transfers its learned waypoint parameters to a Panda.
+
+- **DOI / venue:** [10.1109/ICRA48506.2021.9561439](https://doi.org/10.1109/ICRA48506.2021.9561439) · ICRA 2021.
+- **Robot / learning:** **Panda**, parallel-jaw gripper, Azure Kinect and FrankaPy impedance control. **PPO** trains a partitioned MLP in a **custom approximate internal simulator**. Isaac Gym is a separate target-domain benchmark, not the initial training engine.
+- **Transfer:** Zero-shot PMLP block stacking; learned offsets parameterize a waypoint-based motion primitive. Block heights are supplied manually and perception estimates are manually checked.
+- **SIM / REAL:** REAL achieves **6/10 actual stacks**. All **10/10** satisfy the paper's looser reward threshold, with mean reward **−0.014 ± 0.004**. SIM pretraining terminates on a reward criterion; the physical context distribution is reduced.
+- **Score: Unrated.** The 10/10 reward result is not 100% stacking success, and no matched SIM stacking-success denominator is supplied.
+- **Evidence:** [§VI-A, Table IV and Appendix D, PDF pp. 6/9](https://arxiv.org/pdf/2103.16772v2#page=6).
+- **Video / GitHub:** [Official video](https://youtu.be/fjA7MS3-mjY) · [Project](https://sites.google.com/view/crest-causal-struct-xfer-manip). Public task-specific source not located.
+- **Last reviewed:** 2026-10-01.
+
+### GIGA (2021)
+
+**Synergies Between Affordance and Geometry: 6-DoF Grasp Detection via Implicit Representations**
+
+Jointly learns geometry and grasp affordances from simulated scenes, then removes physical objects using predicted grasps.
+
+- **DOI / venue:** [10.15607/RSS.2021.XVII.024](https://doi.org/10.15607/RSS.2021.XVII.024) · [RSS 2021](https://roboticsproceedings.org/rss17/p024.html).
+- **Robot / learning:** **Panda**, parallel-jaw gripper and fixed side-view depth camera; camera model not reported. **PyBullet**, self-supervised implicit grasp and occupancy networks trained on simulated grasp outcomes and meshes.
+- **Transfer:** Zero-shot standard GIGA, **Packed** setting. A single-view TSDF produces a grasp proposal; the robot executes it and replans for the remaining clutter.
+- **SIM / REAL:** SIM grasp success **83.5% ± 2.4%**, evaluated over 100 five-object rounds. REAL **65/78 = 83.3%**, across 15 five-object rounds; **65/75** objects removed.
+- **Score: Unrated.** The object sets differ, and REAL success explicitly requires placing the object in a neighboring bin. SIM describes successful grasping followed by object removal without establishing the same bin-placement criterion. Similar headline percentages do not resolve that difference.
+- **Evidence:** [§VI-A/B/E, Tables I/III and Fig. 6, PDF pp. 6–9](https://arxiv.org/pdf/2104.01542v2#page=6).
+- **Video / GitHub:** [Official demonstrations](https://sites.google.com/view/rpl-giga2021) · [Data generation, training and evaluation source](https://github.com/UT-Austin-RPL/GIGA). Complete hardware release coverage not established.
+- **Last reviewed:** 2026-10-01.
+
+### RL with traditional controls (2023)
+
+**Simulated and Real Robotic Reach, Grasp, and Pick-and-Place Using Combined Reinforcement Learning and Traditional Controls**
+
+Executes a simulated RL agent's successive movements on a synchronized physical Panda through conventional robot control software.
+
+- **DOI / venue:** [10.3390/robotics12010012](https://doi.org/10.3390/robotics12010012) · Robotics 12(1), 2023.
+- **Robot / learning:** **Panda**, parallel-jaw gripper and vector end-effector feedback; **PyBullet 3.2.1, PPO**. Selected setting: dense-reward pick-and-place with obstacle avoidance.
+- **Transfer:** The agent remains in PyBullet and waits after each step until the physical arm matches it through Franka-ROS/MoveIt. Physical target-object pose feedback is absent. This is synchronized SIM-driven execution, not an independently observed real-world rollout.
+- **SIM / REAL:** Tables 3/4 report **85% SIM** and **70% REAL**, with **ten physical tests**. Two grasp attempts are allowed at each grasp position; physical and simulated object geometry differ.
+- **Score: Unrated.** Retry allowances and the coupled evaluation protocol prevent a defensible matched retention calculation.
+- **Evidence:** [§3.2 and Tables 3/4, PDF pp. 15–16](https://mdpi-res.com/d_attachment/robotics/robotics-12-00012/article_deploy/robotics-12-00012.pdf#page=15).
+- **Video / GitHub:** [Official Video S1, ZIP download](https://mdpi-res.com/d_attachment/robotics/robotics-12-00012/article_deploy/robotics-12-00012-s001.zip). Public task-specific source not located. The publisher landing page restricts automated access; the PDF and video archive are accessible.
+- **Last reviewed:** 2026-10-01.
+
+### FluidLab (2023)
+
+**FluidLab: A Differentiable Environment for Benchmarking Complex Fluid Manipulation**
+
+Optimizes a stirring trajectory in differentiable fluid simulation and executes it on a real robot to create latte art.
+
+- **DOI / venue:** [10.48550/arXiv.2303.02346](https://doi.org/10.48550/arXiv.2303.02346) **(preprint DOI)** · ICLR 2023.
+- **Robot / learning:** **Franka Emika; model not reported**, parallel-jaw gripper holding a latte-art tool. **FluidEngine/Taichi**, gradient-based open-loop trajectory optimization. The physical demonstration does not establish deployment of the paper's PPO/SAC benchmark agents.
+- **Transfer:** Selected **Latte Art (Stirring)** trajectory is optimized in SIM and replayed using physical velocity control. The paper discusses differences in material behavior.
+- **SIM / REAL:** SIM reports optimization results; REAL task evidence is qualitative. No physical success rate, trial count or quantitative pattern-error comparison is supplied.
+- **Score: 0.** Physical execution is demonstrated, but quantitative task-transfer performance is unavailable.
+- **Evidence:** [§5.2 and Appendix D, PDF pp. 9/16](https://arxiv.org/pdf/2303.02346v1#page=16).
+- **Video / GitHub:** [Latte-art demonstration](https://fluidlab2023.github.io/static/videos/latte_art.mp4) · [Project](https://fluidlab2023.github.io/) · [Environments and optimization source with instructions](https://github.com/zhouxian/FluidLab). Complete physical execution software coverage not established.
+- **Last reviewed:** 2026-10-01.
+
+### Plug-and-play grasping (2024)
+
+**Toward a Plug-and-Play Vision-Based Grasping Module for Robotics**
+
+Adapts simulation-optimized grasp trajectories to visual object poses and executes them on an FR3.
+
+- **DOI / venue:** [10.48550/arXiv.2310.04349](https://doi.org/10.48550/arXiv.2310.04349) **(preprint DOI)** · [ICRA 2024 MoMa.v2 workshop](https://mobile-manipulation.net/events/moma2024/), not the main conference. The earlier preprint title is the same work.
+- **Robot / learning:** **FR3**, parallel-jaw gripper and static RealSense D435i; **PyBullet**, MAP-Elites/ME-scs evolutionary optimization of grasp trajectories. Detic, MegaPose and ICG provide object pose estimates; MoveIt connects the motions.
+- **Transfer:** Offline SIM-learned trajectories are transformed into the observed object frame. Camera calibration, favorable object orientations and manual pose-estimation reinitialization are part of the setup.
+- **SIM / REAL:** FR3 experiments on ten YCB objects report **approximately 60% mean physical success**. SIM trajectory-adaptation feasibility is a different measurement; a matching physical-trial denominator is not clearly isolated.
+- **Score: Unrated.** SIM feasibility cannot be divided into REAL grasp success.
+- **Evidence:** [§§IV–V, Figs. 5/6, PDF pp. 4–5](https://arxiv.org/pdf/2310.04349v2#page=4).
+- **Video / GitHub:** [Official project and qualitative illustrations](https://qdgrasp.github.io/object_pose_adaptation/) · [Paper-linked video, currently 404](https://cloud.isir.upmc.fr/s/sqXpAtrrkSiM3SX) · [Upstream QD trajectory-generation code](https://github.com/Johann-Huber/qd_grasp). A complete release of this perception/deployment integration was not located.
+- **Last reviewed:** 2026-10-01.
+
+### QD-Grasp 6DoF (2024)
+
+**Speeding up 6-DoF Grasp Sampling with Quality-Diversity**
+
+Optimizes diverse grasp poses in simulation and transfers selected robust grasps to a physical FR3.
+
+- **DOI / venue:** [10.1109/IROS58592.2024.10801391](https://doi.org/10.1109/IROS58592.2024.10801391) · IROS 2024.
+- **Robot / learning:** Physical **FR3** with a parallel-jaw **Panda gripper**; RealSense D435i for object poses. **PyBullet**, MAP-Elites/ME-scs grasp search with domain-randomized fitness; MoveIt/RRT-Connect plans execution.
+- **Transfer:** Selected high-fitness, nominally SIM-successful 6-DoF grasps; table-colliding proposals are discarded. This evaluates execution of learned grasp parameters, not a closed-loop neural policy.
+- **SIM → REAL:** Table I reports **95% selected-grasp transfer** for the parallel-jaw setting, relative to grasps successful in nominal SIM. The physical trial count is not reported. The **84% reach-and-grasp** comparator is earlier work; **72%** belongs to the Allegro setting.
+- **Score: 4.** Reported selected-grasp retention exceeds 90%; documented grasp-generation code and physical examples are public. This does not imply 95% success over arbitrary grasps or a verified complete hardware stack.
+- **Evidence:** [§V, Table I/Fig. 8 and Appendix II, PDF pp. 5/7](https://arxiv.org/pdf/2403.06173v1#page=5).
+- **Video / GitHub:** [Official project and examples](https://qdgrasp.github.io/generating_grasp_poses/) · [Public source on GitLab](https://gitlab.isir.upmc.fr/l2g/qd_grasp_6dof), including installation, randomized grasp generation and evaluation instructions. Fig. 8 supplies physical parallel-jaw photos; repository animations also show Allegro experiments. No official GitHub mirror located.
+- **Last reviewed:** 2026-10-01.
+
+### GraspLDM (2024)
+
+**GraspLDM: Generative 6-DoF Grasp Synthesis using Latent Diffusion Models**
+
+Learns a distribution of grasps from synthetic data and uses ranked grasp proposals to pick up unseen physical objects.
+
+- **DOI / venue:** [10.1109/ACCESS.2024.3492118](https://doi.org/10.1109/ACCESS.2024.3492118) · IEEE Access, 2024.
+- **Robot / learning:** **FR3**, Franka hand and eye-in-hand depth sensing. **VAE + latent denoising diffusion**, with a grasp classifier. Training uses **ACRONYM grasp labels generated in NVIDIA FleX**; **Isaac Gym is used for evaluation**. [ACRONYM's official description](https://github.com/NVlabs/acronym) identifies the data-generation simulator.
+- **Transfer:** No real fine-tuning. SAM segments the observed point cloud; 100 sampled grasps are ranked, then IK/collision checks and RRT-Connect determine execution.
+- **SIM / REAL:** Selected FR3 GraspLDM-P-63C result: **78.75% = 63/80**, covering 16 objects × five poses, without retries. The separate UR10e result is not Franka evidence.
+- **Score: Unrated.** SIM statistics concern generated grasp distributions; REAL selects ranked, feasible grasps. The denominators are not equivalent.
+- **Evidence:** [§IV-D/E, Table 2 and Fig. 10, PDF pp. 9–10](https://arxiv.org/pdf/2312.11243v2#page=9).
+- **Video / GitHub:** [Author's official video](https://youtu.be/z3-otAp28XA) · [Training, generation and checkpoint instructions](https://github.com/kuldeepbrd1/graspLDM). Fig. 10 establishes the FR3 setup; do not assume every video scene uses Franka. The repository's project-page hyperlink is broken, but its embedded video identifier resolves.
+- **Last reviewed:** 2026-10-01.
+
+### GCS tactile transfer (2026)
+
+**Zero-shot Sim2Real Transfer for Magnet-Based Tactile Sensor on Insertion Tasks**
+
+Randomizes simulated tactile responses to transfer blind insertion policies using dense magnetic touch sensing.
+
+- **DOI / venue:** [10.48550/arXiv.2505.02915](https://doi.org/10.48550/arXiv.2505.02915) **(preprint DOI)** · ICRA 2026, confirmed by the [author's publication list](https://beininghan.github.io/); publisher DOI not located.
+- **Robot / learning:** **Franka; arm model not reported**. The paper explicitly names the **Franka Research 3 gripper**, fitted with PaXini magnetic tactile pads, plus RealSense L515/ArUco initialization. **robosuite/MuJoCo, asymmetric SAC** with tactile-history CNN inputs.
+- **Transfer:** Six blind insertion variants, without real task-policy fine-tuning. Physical tactile readings set randomization ranges; calibrated vision initializes poses but does not provide the policy with the hidden peg pose.
+- **SIM → REAL:** Table II, six-variant mean success: **91% → 80%**. SIM has **50 trials/variant**, REAL **10/variant**: **273/300 → 48/60**. Mean retention: **87.91%**. The 1 mm square-hole variant individually drops from 98% to 60%.
+- **Score: 2.** The score covers this explicit six-variant family, not its best example; ten real trials per variant limit precision.
+- **Evidence:** [§IV, Table II and Appendix, PDF pp. 4–5/8–9](https://arxiv.org/pdf/2505.02915v2#page=4).
+- **Video / GitHub:** [Official project with per-variant physical videos](https://princeton-vl.github.io/tactilegcs.github.io/). The Code button does not resolve to a task-source release; no public official implementation located.
+- **Last reviewed:** 2026-10-01.
+
+### NeuralTouch (2026)
+
+**NeuralTouch: Neural Descriptors for Precise Sim-to-Real Tactile Robot Control**
+
+Refines a vision-initialized grasp with a learned tactile policy before replaying a precise manipulation motion.
+
+- **DOI / venue:** [10.1109/TMECH.2026.3687919](https://doi.org/10.1109/TMECH.2026.3687919) · IEEE/ASME Transactions on Mechatronics, 2026.
+- **Robot / learning:** **Panda**, Franka gripper with two custom compact TacTip fingers and wrist RealSense D435. **Tactile Gym 2.0/PyBullet, PPO**, combined with neural descriptors and a real-to-sim pix2pix image translator.
+- **Transfer:** No physical task-policy fine-tuning, but image translation uses **5,000 paired training images per sensor**. Learned grasp refinement precedes programmed trajectory replay; this is not transfer without real data.
+- **SIM → REAL:** Selected extraction/insertion task: **86.7% SIM**, 60 trials; physical bolt **55%**, plug **25%**, USB **15%**, averaging **31.7%** as reported. Physical trial counts are not stated. Authors explicitly compare the two means: approximately **36.6% retention**.
+- **Score: 1, task-level comparison.** The large gap includes changed objects, clearances and initial conditions; this is not a paired-geometry estimate of physics mismatch alone.
+- **Evidence:** [§IV-B/C, §V-B/C and Tables II/IV, PDF pp. 5–9](https://arxiv.org/pdf/2510.20390v2#page=8).
+- **Video / GitHub:** [Project and physical task videos](https://yijionglin.github.io/neuraltouch/) · [Linked GitHub repository](https://github.com/yijionglin/neuraltouch) contains the **project website**, not the policy's training/deployment source. Task-source release not located.
+- **Last reviewed:** 2026-10-01.
+
+### DRIS reactive catching (2026)
+
+**Zero-Shot Sim-to-Real Robot Learning: A Dexterous Manipulation Study on Reactive Catching**
+
+Learns to catch a moving ball on an arm-mounted plate while accounting for randomized object dynamics.
+
+- **DOI / venue:** [10.15607/RSS.2026.XXII.148](https://doi.org/10.15607/RSS.2026.XXII.148) · [RSS 2026](https://roboticsproceedings.org/rss22/p148.html).
+- **Robot / learning:** **FR3**, 3D-printed plate with neoprene padding and two 80 FPS tracking cameras. **ManiSkill3, PPO**, with a learned domain-randomization instance-set encoder and FiLM-conditioned policy.
+- **Transfer:** Deployed training uses **200 randomized ball instances**. Physical controller/dynamics identification precedes transfer; no physical task-policy fine-tuning is reported.
+- **SIM / REAL:** Main ramp-fed evaluation: **41/60 = 68.3%**, across four balls × three ramps × five trials. Success requires retaining the ball on the plate for ten seconds. Hand-thrown and irregular-object demonstrations are separate qualitative evidence.
+- **Score: Unrated.** SIM noise/randomization sweeps do not establish a matching deployed-policy reference for the physical ball/ramp distribution. The 0.89 SIM result for a 50-instance configuration is not the denominator for the 200-instance deployment.
+- **Evidence:** [§§V–VI, Fig. 8 and Appendix A, PDF pp. 8–9/13](https://arxiv.org/pdf/2605.09789v1#page=8).
+- **Video / GitHub:** [Official video](https://www.youtube.com/watch?v=-jifGtyr6zM), linked by the [author](https://charlierkj.github.io/). Public task-specific source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Visual action-space benchmark (2026)
+
+**Benchmarking Action Spaces in Reinforcement Learning for Vision-based Robotic Manipulation**
+
+Compares simulated visual-control action spaces by transferring cuboid-picking policies to a Panda.
+
+- **DOI / venue:** [10.48550/arXiv.2606.18594](https://doi.org/10.48550/arXiv.2606.18594) **(preprint DOI)** · arXiv preprint, 2026.
+- **Robot / learning:** **Panda**, parallel-jaw gripper and wrist RealSense D405; **MuJoCo, PPO**, using 1,024 parallel environments and ten training seeds. Selected task: **PandaPickCuboid with joint-velocity actions**, lifting the cuboid at least 17 cm.
+- **Transfer:** SIM-trained visual policy; action scaling, gripper thresholds and execution limits are adjusted for hardware. The two strongest SIM policies per action space are tested, and the best physical result is reported.
+- **SIM / REAL:** SIM action-space results reach **98–100%**; selected REAL joint-velocity policy succeeds **12/12**, with median completion time **3.58 s**.
+- **Score: Unrated.** The aggregate SIM results do not identify the corresponding success rate of the physically selected winner. Hardware additionally terminates episodes at workspace limits or after ten failed grasp attempts.
+- **Evidence:** [§§IV–VI, Tables II/III, PDF pp. 3–6](https://arxiv.org/pdf/2606.18594v1#page=5).
+- **Video / GitHub:** [Official video](https://youtu.be/MmXEexVRa18) · [Official source](https://github.com/RL-Sim-to-Real/training), containing PPO pick/push training and real visual evaluation scripts. Root setup documentation still emphasizes an earlier reaching example.
 - **Last reviewed:** 2026-10-01.

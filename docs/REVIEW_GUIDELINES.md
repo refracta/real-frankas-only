@@ -14,7 +14,9 @@ An entry must establish all three steps:
 2. **SIM:** A policy learned in simulation for that task, through reinforcement learning, imitation learning, or a combination.
 3. **REAL:** Deployment of that simulation-trained policy on physical Franka hardware for the corresponding task.
 
-Record the exact Franka model and revision when stated: for example, **Panda**, **FR3**, or **FR3 2.1**. Do not merge these labels or infer a revision from the publication date or appearance. If a source says only “Franka,” preserve that wording and mark the model/revision **Not reported**. Keep robot hardware revisions separate from firmware and controller software versions. Also record the gripper and task-relevant sensors.
+Record the exact Franka model and revision when stated: for example, **Panda**, **FR3**, or **FR3 2.1**. Do not merge these labels or infer a revision from the publication date or appearance. If a source says only “Franka,” preserve that wording and mark the model/revision **Not reported**. Keep robot hardware revisions separate from firmware and controller software versions. Also record the end-effector and task-relevant sensors.
+
+Identify the physical end-effector separately from the arm: commercial gripper and model, modified/custom fingers or tactile pads, dexterous hand and model, or task-specific tool/attachment. Distinguish a held tool from an attachment replacing the gripper when known. A simulated gripper asset is not evidence of physical hardware. Do not assume a stock Franka gripper merely because the arm is Panda or FR3; mark unresolved type, model or modification status as not reported. Franka Hand is a parallel-jaw gripper, not a dexterous multi-finger hand. For multiple reviewed setups, label which task uses each end-effector.
 
 Separate zero-shot transfer from transfer that uses real-world demonstrations, policy fine-tuning, or human corrections. Report calibration and controller changes when relevant.
 
@@ -26,7 +28,7 @@ The review unit is **paper × task × policy/transfer setting**. Split entries w
 
 The initial collection target is **at least 20 distinct eligible papers**, not 20 task rows. This is a minimum, not a stopping rule: continue expanding the collection when requested and eligible evidence is available. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
 
-Keep this file and other research instructions under `docs/`. Keep `README.md` focused on the reviewed results, with links to these instructions. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
+Keep this file and other research instructions under `docs/`. Keep `README.md` focused on the reviewed results, with an end-effector column, a compact 0–4 score key and an explanation of Unrated, as requested by the user. Link to this file for the detailed review procedure. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
 
 ## Required information
 
@@ -37,7 +39,7 @@ Keep this file and other research instructions under `docs/`. Keep `README.md` f
 | Task | The concrete task and the exact variant being evaluated. |
 | One-line summary | What the method learns and what the physical robot does. |
 | Robot model / revision | Exact source-reported model, such as Panda, FR3, or FR3 2.1. Mark unspecified revisions **Not reported**; keep firmware versions separate. |
-| Gripper / sensors | Gripper and task-relevant sensors or attachments. |
+| End-effector / sensors | Physical gripper/hand/tool type and model; custom modifications, tactile fingers/pads and held or mounted tools; task-relevant sensors. Label unspecified details rather than infer stock hardware. |
 | Simulator | The actual training simulator, plus framework/physics engine and version when reported. Keep Isaac Gym, Isaac Sim, and Isaac Lab distinct. |
 | Learning method | RL, imitation learning/behavior cloning, or hybrid; name algorithms such as PPO, SAC, or TD3 and policy models such as Diffusion Policy or ACT when used. Distinguish the policy architecture from its training algorithm and record subsequent RL fine-tuning. |
 | Transfer setting | Zero-shot or adapted; describe real data, human interventions, and policy updates. |
@@ -92,7 +94,7 @@ One sentence describing the learned behavior and real-robot deployment.
 - DOI / paper / venue:
 - Task:
 - Franka model / hardware revision (or Not reported):
-- Gripper, sensors, and separately reported firmware/controller version:
+- End-effector type/model, custom modifications or task tools, sensors, and separately reported firmware/controller version:
 - Training simulator and framework/version:
 - Learning method, algorithm, and policy architecture:
 - Transfer setting and real-world adaptation:
