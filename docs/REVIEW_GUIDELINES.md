@@ -20,6 +20,8 @@ Separate zero-shot transfer from transfer that uses real-world demonstrations, p
 
 Simulation-only benchmarks, manually programmed controllers without a learned task policy, and policies trained only on real data are outside this list. Evaluating one policy in simulation and an unrelated policy on hardware does not establish sim-to-real transfer.
 
+Identify what the learned policy outputs: motor commands, trajectories, grasp/primitive parameters, or executable control programs. Describe any programmed motion planner, controller or recovery mechanism around it. Optimizing a task policy's parameters against simulated task outcomes can establish policy learning; fitting only a dynamics model does not, by itself, establish that a task policy was learned. Controlled execution of policy-derived grasps must be labeled explicitly rather than described as closed-loop hardware policy evaluation.
+
 The review unit is **paper × task × policy/transfer setting**. Split entries when a paper reports materially different tasks or transfer settings. A clearly identified family of task variants may share an entry when the SIM and REAL results cover the same variants. Do not give an entire paper its best task's score.
 
 The initial collection target is **at least 20 distinct eligible papers**, not 20 task rows. This is a minimum, not a stopping rule: continue expanding the collection when requested and eligible evidence is available. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
@@ -71,6 +73,8 @@ For example, 72% REAL success against 80% SIM success means **90% retention**, a
 - Preserve trial counts and reported uncertainty. Clearly label values estimated from plots. A high retention ratio does not imply high absolute task success or statistical equivalence.
 - A polished video or code release cannot raise a score of 0–2 to 4. Describe code coverage honestly; score 4 does not imply that a complete hardware deployment stack has been reproduced.
 - If REAL is quantitative but its SIM counterpart is missing or not comparable, mark the entry **Unrated — comparison unavailable**. This is a review status, not a sixth score, and is different from score 0.
+- Inference speed, simulator throughput and model accuracy alone are not quantitative REAL task outcomes. Record those measurements, but use score 0 if physical task performance remains qualitative.
+- Check that released code and qualitative evidence cover the selected policy/setting. A repository containing only a release announcement, an unrelated baseline's video, or simulator utilities without the selected task policy does not establish score 4.
 
 ## Adding or updating a paper
 
