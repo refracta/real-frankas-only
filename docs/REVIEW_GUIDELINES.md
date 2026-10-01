@@ -1,6 +1,6 @@
 # Review guidelines
 
-Last updated: 2026-10-01 (Asia/Seoul)
+Last updated: 2026-10-02 (Asia/Seoul)
 
 A reading list of papers that define a concrete robot task, learn a policy for that task in simulation, and deploy that policy on a physical Franka robot. Each review checks what was actually transferred, how REAL compares with SIM, and which supporting materials are public.
 
@@ -29,6 +29,8 @@ The review unit is **paper × task × policy/transfer setting**. Split entries w
 The initial collection target is **at least 20 distinct eligible papers**, not 20 task rows. This is a minimum, not a stopping rule: continue expanding the collection when requested and eligible evidence is available. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
 
 Keep this file and other research instructions under `docs/`. Keep `README.md` focused on the reviewed results, with an end-effector column, a compact 0–4 score key and an explanation of Unrated, as requested by the user. Link to this file for the detailed review procedure. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
+
+Sort the README index and detailed reviews by score **4, 3, 2, 1, 0, then Unrated**. For entries with multiple scores, use the highest displayed score only as the sorting key and preserve every setting's assessment. Keep the existing relative order within each score group. Reordering alone changes the README update date, not individual paper review dates.
 
 ## Required information
 
