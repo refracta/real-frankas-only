@@ -8,7 +8,7 @@
 
 ## Reviewed papers
 
-**20 distinct papers with physical Franka deployment**, checked against their full papers and official supporting materials. Seven papers have a numerical score for the selected setting; thirteen remain **Unrated** because a defensible SIM-to-REAL retention comparison is unavailable. Different tasks, preprints, and published versions of the same work are not counted as additional papers.
+**40 distinct papers with physical Franka deployment**, checked against their full papers and official supporting materials. Twelve papers have a numerical score for the selected setting; twenty-eight remain **Unrated** because a defensible SIM-to-REAL retention comparison is unavailable. Different tasks, preprints, and published versions of the same work are not counted as additional papers.
 
 | Paper | Venue | Franka model | Task | Training simulator | Learning method | Score |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -32,6 +32,26 @@
 | [Context-aware policies](#context-aware-policies-2026) | Robotics and Autonomous Systems, 2026 | Panda | Box pushing | AGX Dynamics | RL: SAC + LSTM context estimator | **2 / 1**, by setting |
 | [MolmoB0T](#molmob0t-2026) | arXiv preprint, 2026 | FR3 | Language-conditioned pick-and-place | MolmoSpaces / MuJoCo | IL: VLM + flow-matching action head | Unrated |
 | [Torque-controlled transfer](#torque-controlled-transfer-2026) | AIM 2026 | Panda | Target reaching with joint torques | MuJoCo; Gazebo for transfer testing | RL: TQC + dynamics identification | Unrated |
+| [Continuous control](#continuous-control-2022) | Autonomous Robots, 2022 | Panda | Grasp-and-lift with obstacle avoidance | robosuite / MuJoCo | RL: PPO; simulation fine-tuning | Unrated |
+| [Centralized dual-arm assembly](#centralized-dual-arm-assembly-2022) | Frontiers in Robotics and AI, 2022 | Two Pandas | Cooperative peg insertion | PyBullet | RL: SAC + HER | Unrated |
+| [Haptic object insertion](#haptic-object-insertion-2023) | ICRA 2023 | Panda | Insert a plate into a rack | robosuite / MuJoCo | RL: SAC | **4**, task-level comparison |
+| [Latent prediction](#latent-prediction-2023) | Frontiers in Robotics and AI, 2023 | Panda | Visual cube pushing | Gazebo | SAC + dynamics-aware VAE; real encoder adaptation | Unrated |
+| [Action-space study](#action-space-study-2024) | RA-L 2024 | Panda | Box pushing: joint velocity / joint position | Isaac Sim / PhysX, as named in paper | RL: PPO | **3 / 1**, by action space |
+| [Curriculum dual-arm assembly](#curriculum-dual-arm-assembly-2024) | Machines, 2024 | Two Pandas | Square peg insertion | robosuite / MuJoCo | RL: SAC + reverse curriculum | Unrated |
+| [Active Search](#active-search-2024) | IROS 2024 | FR3 | Find and retrieve an occluded object | PyBullet | RL: branching Q-networks + learned grasp proposals | Unrated |
+| [ResiP](#resip-2025) | ICRA 2025 | Panda | One-leg furniture assembly | Isaac Gym; Isaac Sim for rendering | Diffusion BC + residual PPO → visual BC | Unrated |
+| [ReBot](#rebot-2025) | IROS 2025 | Panda | Object-to-plate pick-and-place | Isaac Sim 4.1 / Isaac Lab | IL: Octo / OpenVLA fine-tuning on synthetic videos | Unrated |
+| [AnyTask](#anytask-2025) | arXiv preprint, 2025 | Franka; model not reported | Lifting, pushing, stacking, drawer manipulation | Isaac Lab / Isaac Sim | IL: 3D Diffusion Policy | Unrated |
+| [D²PPO](#d2ppo-2026) | AAAI 2026 | Panda | Bimanual Transport | robomimic / robosuite / MuJoCo | Diffusion BC with dispersive loss + PPO | **2** |
+| [FUNCanon](#funcanon-2026) | ICRA 2026 | Franka Emika; model not reported | Pick-and-place; pouring | RLBench / CoppeliaSim | IL: object-centric diffusion policy | Unrated |
+| [Sim-to-online RL](#sim-to-online-rl-2026) | arXiv preprint, 2026 | Panda | Visual cube picking | MuJoCo Playground / Brax | RL: SAC + BRO critic / DrQ; real fine-tuning | Unrated |
+| [AffordSim](#affordsim-2026) | arXiv preprint, 2026 | FR3 | Banana-to-plate placement | Isaac Sim + 3DGS backgrounds | IL: π0.5; BC / DP / ACT / VLA-adapter comparisons | **1**, task-level comparison |
+| [VLAJS](#vlajs-2026) | ICRA 2026 RL4IL workshop | Panda | Cube lifting, pick-and-place, peg reorientation | ManiSkill / SAPIEN | RL: PPO with temporary VLA guidance | Unrated |
+| [MATCH](#match-2026) | arXiv preprint, 2026 | FR3 | Fragile peg insertion under pose uncertainty | Isaac Lab / Isaac Sim | RL: PPO with hybrid position/force actions | Unrated |
+| [World-action transfer](#world-action-transfer-2026) | CVPR 2026 EAI workshop | FR3 | Lifting, drawer opening, strawberry-to-bowl placement | GPU simulator; cites Isaac Gym, implementation unclear | IL: Cosmos Policy video diffusion | Unrated |
+| [Object-centric residual RL](#object-centric-residual-rl-2026) | arXiv preprint, 2026 | FR3 | Cube-to-bowl pick-and-place | MuJoCo | TD3 residual over GR00T-N1.5 | Unrated |
+| [MoDex](#modex-2026) | arXiv preprint, 2026 | Panda + Allegro Hand | Sequential multi-object grasping | robosuite / MuJoCo | OS-conditioned Diffusion Policy + DPPO | Unrated |
+| [TAM](#tam-2026) | CoRL 2026, accepted | Panda | Visual box pushing | MuJoCo / MJX | PPO → point-cloud BC; supervised torque adaptation | **3**, ideal-SIM reference |
 
 No reviewed source explicitly identifies **FR3 2.1**. Hardware revisions are **not reported** unless stated below. “Franka Emika 3” is preserved as the TRANSIC paper's wording, without silently relabeling it Panda or a particular FR3 revision.
 
@@ -317,4 +337,285 @@ Fits robot dynamics from real trajectories, trains a torque policy in simulation
 - **Score: Unrated.** Quantitative REAL reward curves exist, so this is not score 0. Negative rewards approaching zero do not support the percentage-retention formula, and the plots do not establish a normalized aggregate score.
 - **Evidence:** [§IV-B–C, Figs. 7–8, PDF pp. 4–6](https://arxiv.org/pdf/2608.22629#page=6).
 - **Video / GitHub:** Physical snapshots in Fig. 7; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Continuous control (2022)
+
+**Continuous control actions learning and adaptation for robotic manipulation through reinforcement learning**
+
+Adapts simulated grasping policies for smooth motion and obstacle avoidance, then runs them on a physical Panda.
+
+- **DOI / venue:** [10.1007/s10514-022-10034-z](https://doi.org/10.1007/s10514-022-10034-z) · Autonomous Robots, 2022.
+- **Robot / learning:** Panda, parallel gripper, state observations; modified robosuite/MuJoCo 2.00. PPO is the deployed method; SAC is also compared. Policy adaptation occurs in SIM, followed by zero-shot REAL deployment.
+- **SIM / REAL:** REAL grasp-and-lift succeeds **10/10 without obstacles and 10/10 with obstacles**. SIM Table 1 reports base-policy generalization, whereas hardware uses policies subsequently adapted for control constraints and obstacles.
+- **Score: Unrated.** No matching SIM success rate is given for the deployed adapted checkpoints; the base policy's success is not their denominator.
+- **Evidence:** [§§5.2–5.4, especially real-robot experiments](https://link.springer.com/article/10.1007/s10514-022-10034-z).
+- **Video / GitHub:** [Real-robot video linked by the authors](https://drive.google.com/file/d/1zlS-_HIWMlIAvrxqGNGRyMbuDfQrws8z/view) · [Simulation training source](https://github.com/Asad-Shahid/Intelligent-Task-Learning).
+- **Last reviewed:** 2026-10-01.
+
+### Centralized dual-arm assembly (2022)
+
+**Learning to Centralize Dual-Arm Assembly**
+
+Learns one coordinating policy above two independent arm controllers for cooperative peg insertion.
+
+- **DOI / venue:** [10.3389/frobt.2022.830007](https://doi.org/10.3389/frobt.2022.830007) · Frontiers in Robotics and AI, 2022.
+- **Robot / learning:** Two Pandas with peg/hole fixtures attached to their grippers and proprioceptive observations. PyBullet; SAC + hindsight experience replay. Zero-shot task policy, with real controller limits/gains adjusted.
+- **SIM / REAL:** Selected REAL setting: **2 mm clearance, Cartesian impedance**, approximately **67% success**, estimated from Fig. 6. Joint-position and variable-impedance alternatives are approximately 5% and 14%. REAL trial count is not specified in that section.
+- **Score: Unrated.** SIM learning curves cover multiple controller/clearance configurations and seeds; a matching scalar result for the deployed checkpoint is not established.
+- **Evidence:** [§5.3 and Fig. 6, PDF pp. 9–10](https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2022.830007/pdf#page=9).
+- **Video / GitHub:** [Official video](https://www.youtube.com/watch?v=IjAEWvnGykc) · [Project](https://sites.google.com/view/dual-arm-assembly/home). Public task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Haptic object insertion (2023)
+
+**Zero-Shot Transfer of Haptics-Based Object Insertion Policies**
+
+Uses contact feedback to insert a pregrasped plate into a rack despite changing gripper mechanics.
+
+- **DOI / venue:** [10.1109/ICRA48891.2023.10160346](https://doi.org/10.1109/ICRA48891.2023.10160346) · ICRA 2023.
+- **Robot / learning:** Panda with Soft Robotics mGrip, wrench/proprioceptive feedback and initial visual target localization. robosuite/MuJoCo; SAC with observation history and randomized latency. Zero-shot transfer from a rigid simulated gripper to a soft physical gripper.
+- **SIM → REAL:** Table II: **84.0% ± 15.0% → 83.3% ± 13.6%**, retention **99.17%**. REAL: six slots × four repetitions = **24 attempts**. SIM rollout count is not separately clear from the reported four-trial aggregation.
+- **Score: 4, task-level comparison.** Plate/rack geometry and gripper mechanics differ. Public training, checkpoints, deployment documentation, and demonstrations support the materials criterion.
+- **Evidence:** [Table II and §IV, PDF p. 5](https://arxiv.org/pdf/2301.12587v3#page=5).
+- **Video / GitHub:** [Official video](https://www.youtube.com/watch?v=CS7uP_pW77U) · [Project](https://sites.google.com/view/compliant-object-insertion) · [Training and ROS deployment](https://github.com/isl-org/0shot-object-insertion).
+- **Last reviewed:** 2026-10-01.
+
+### Latent prediction (2023)
+
+**Sim-to-real via latent prediction: Transferring visual non-prehensile manipulation policies**
+
+Transfers a visual pushing policy by adapting its visual representation on real interaction data.
+
+- **DOI / venue:** [10.3389/frobt.2022.1067502](https://doi.org/10.3389/frobt.2022.1067502) · Frontiers in Robotics and AI, **2023**; the DOI contains 2022.
+- **Robot / learning:** Panda with external RGB observations; gripper model not specified. **Gazebo**; dynamics-aware VAE + SAC. REAL adaptation updates the encoder/decoder while freezing the task policy and learned latent dynamics.
+- **SIM / REAL:** Table 3 reports **98% best SIM success** and **92% best REAL success after adaptation**. REAL reaches about 80% after 550 episodes and 90% after 990. The zero-shot result is inconsistent: **5% in Table 3**, versus about 10% in §4.3.
+- **Score: Unrated.** No matched SIM evaluation of the final adapted visual policy is supplied; 92/98 would not measure zero-shot retention.
+- **Evidence:** [Table 3, §4.3 and Fig. 9](https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2022.1067502/full).
+- **Video / source:** REAL photos in Fig. 10; official video and GitHub release not located. [Official source is on GitLab](https://gitlab.com/crzz/dvae_s2r_pushing).
+- **Last reviewed:** 2026-10-01.
+
+### Action-space study (2024)
+
+**On the Role of the Action Space in Robot Manipulation Learning and Sim-to-Real Transfer**
+
+Compares how alternative action interfaces change the transfer of learned box-pushing behavior.
+
+- **DOI / venue:** [10.1109/LRA.2024.3398428](https://doi.org/10.1109/LRA.2024.3398428) · IEEE Robotics and Automation Letters, 2024.
+- **Robot / learning:** Panda; joint and object-state observations, sensor/gripper models unspecified. PPO in **Isaac Sim/PhysX**, as explicitly named in §IV-A. Real execution adds safety filtering and rate limits; no real policy fine-tuning is reported.
+- **SIM → REAL, box pushing:** Joint velocity (**JV**): **97% ± 5% → 90% ± 5%**, retention **92.78%, score 3**. Joint position (**JP**): **87% ± 12% → 4% ± 0%**, retention **4.60%, score 1**.
+- **Comparison limits:** Five policies are trained per action space; the best three are selected for REAL. Hardware goal/reset procedures and safety filtering differ. Per-policy REAL trial counts are not stated in the checked evaluation description.
+- **Evidence:** [§IV-A and Table I, PDF pp. 4–6](https://arxiv.org/pdf/2312.03673v2#page=6).
+- **Video / GitHub:** Physical setup photos in Fig. 2; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Curriculum dual-arm assembly (2024)
+
+**Curriculum Design and Sim2Real Transfer for Reinforcement Learning in Robotic Dual-Arm Assembly**
+
+Uses a reverse curriculum and domain randomization to learn cooperative square-peg insertion.
+
+- **DOI / venue:** [10.3390/machines12100682](https://doi.org/10.3390/machines12100682) · Machines, 2024.
+- **Robot / learning:** Two Pandas, peg/hole attachments and proprioception; 1 mm clearance. robosuite/MuJoCo; SAC with joint impedance control. Zero-shot physical task policy.
+- **SIM / REAL:** SIM: **99.8% over 10,000 trials**, completion time **4.99 ± 0.80 s**. REAL: **100/100**, **4.31 ± 0.34 s**.
+- **Score: Unrated.** SIM randomizes initial configurations; the 100 REAL trials start from a fixed nominal configuration. Dividing 100 by 99.8 would conceal this easier, narrower physical evaluation. Timing likewise includes this distribution difference.
+- **Evidence:** [§§5.1–5.2 and Fig. 6, PDF pp. 10–11](https://mdpi-res.com/d_attachment/machines/machines-12-00682/article_deploy/machines-12-00682.pdf#page=10).
+- **Video / GitHub:** Physical setup photos in Fig. 1; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Active Search (2024)
+
+**Reinforcement Learning for Active Search and Grasp in Clutter**
+
+Learns when to inspect a cluttered scene and when to grasp objects to retrieve an occluded target.
+
+- **DOI / venue:** [10.1109/IROS58592.2024.10801366](https://doi.org/10.1109/IROS58592.2024.10801366) · IROS 2024.
+- **Robot / learning:** **FR3**, explicitly “Franka Emika Research 3” in §IV-B, with wrist depth camera and parallel gripper. PyBullet; branching dueling Q-networks over view/grasp actions with VGN grasp proposals. Zero-shot deployment.
+- **SIM / REAL:** SIM: **100% retrieval over 22 held-out scenes**, **65.77 ± 33.33 s**. REAL: three case studies, five runs each. Case (c) takes **54.2 ± 18.70 s**, with two grasps per run.
+- **Score: Unrated.** REAL reports case-specific times and grasp counts; those cases are not the 22-scene SIM success benchmark. Completion time is not a success-retention percentage.
+- **Evidence:** [§§IV-B, V-B and Table II, PDF p. 6](https://jenjenchung.github.io/anthropomorphic/Papers/Pitcher2024reinforcement.pdf#page=6).
+- **Video / GitHub:** [Official Active Search video](https://jenjenchung.github.io/anthropomorphic/Videos/ActiveSearch.mp4). Public task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### ResiP (2025)
+
+**From Imitation to Refinement — Residual RL for Precise Assembly**
+
+Improves assembly demonstrations with residual RL in simulation and distills the resulting behavior into a visual policy.
+
+- **DOI / venue:** [10.1109/ICRA55743.2025.11127442](https://doi.org/10.1109/ICRA55743.2025.11127442) · ICRA 2025.
+- **Robot / learning:** Panda, parallel gripper, RGB observations; one-leg furniture assembly. **FurnitureBench/Isaac Gym** for learning, **Isaac Sim** for rendering. Diffusion BC + residual PPO teacher → visual Diffusion BC student using SIM and REAL demonstrations.
+- **SIM / REAL:** Selected 40-real-demonstration setting: **5/10** successful physical assemblies with part variation; **6/10** with an obstacle. The **98% SIM teacher** result is from a different policy representation.
+- **Score: Unrated.** A matching SIM result for the deployed visual student is unavailable. Real demonstrations contribute to learning; this is not transfer without real training data.
+- **Evidence:** [§IV-C, Table II and Appendix XII-B](https://arxiv.org/pdf/2407.16677v4#page=8).
+- **Video / GitHub:** [Real deployment clip](https://iai-robust-rearrangement.s3.us-east-2.amazonaws.com/videos/website/real/3_40_real_350_sim.mp4) · [Project](https://residual-assembly.github.io/) · [Training/data instructions](https://github.com/ankile/robust-rearrangement).
+- **Last reviewed:** 2026-10-01.
+
+### ReBot (2025)
+
+**ReBot: Scaling Robot Learning with Real-to-Sim-to-Real Robotic Video Synthesis**
+
+Replays real trajectories in simulation to synthesize policy-training videos for physical pick-and-place.
+
+- **DOI / venue:** [10.1109/IROS60139.2025.11246305](https://doi.org/10.1109/IROS60139.2025.11246305) · IROS 2025.
+- **Robot / learning:** Panda with Robotiq 2F-85 and RGB input. **Isaac Sim 4.1/Isaac Lab**; imitation fine-tuning of Octo (diffusion actions) and OpenVLA (autoregressive actions/LoRA). Training uses synthetic robot videos combined with real trajectory/background data.
+- **SIM / REAL:** OpenVLA + ReBot succeeds **40%, 40%, 50%, 50%** on four physical object-to-plate tasks: **45% average, 10 trials/task**. Octo + ReBot averages 25%.
+- **Score: Unrated.** SIM evaluation elsewhere uses different embodiments and task settings, including WidowX and Google Robot. Those results are not a Panda transfer denominator.
+- **Evidence:** [Implementation details, §IV-D and Table II, PDF pp. 4–7](https://arxiv.org/pdf/2503.14526v1#page=7).
+- **Video / GitHub:** [Real carrot placement](https://yuffish.github.io/assets/rebot/realworld_carrot.mp4) · [Project and other physical tasks](https://yuffish.github.io/rebot/) · [Video-synthesis source](https://github.com/yuffish/rebot).
+- **Last reviewed:** 2026-10-01.
+
+### AnyTask (2025)
+
+**AnyTask: an Automated Task and Data Generation Framework for Advancing Sim-to-Real Policy Learning**
+
+Generates simulated manipulation demonstrations automatically and trains point-cloud diffusion policies for physical execution.
+
+- **DOI / venue:** [10.48550/arXiv.2512.17853](https://doi.org/10.48550/arXiv.2512.17853) **(preprint DOI)** · arXiv preprint, 2025; reviewed revision v2, 2026.
+- **Robot / learning:** Franka brand is legible on the arm in the official hardware video; **model not reported**. Parallel gripper, four RealSense D455 cameras. Isaac Lab/Isaac Sim; 3D Diffusion Policy BC on 1,000 ViPR-generated SIM demonstrations/task, without real policy-training data.
+- **SIM / REAL:** Eight physical tasks cover lifting, stacking, pushing, placement, and drawers: **44% mean success**, **30 trials/task, 240 total**. Fig. 5 displays uncertainty across three ten-trial groups.
+- **Score: Unrated.** The SIM data-generator/policy comparisons do not provide a matching eight-task result for these deployed policies.
+- **Evidence:** [§4.3, Fig. 5 and Appendix B](https://arxiv.org/pdf/2512.17853v2#page=7).
+- **Video / GitHub:** [Real banana lift](https://anytask.rai-inst.com/assets/videos/sim2real/real_pick_banana_small.mp4) · [Official demonstrations](https://anytask.rai-inst.com/). Public task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### D2PPO (2026)
+
+**D²PPO: Diffusion Policy Policy Optimization with Dispersive Loss**
+
+Regularizes diffusion-policy representations before RL fine-tuning and transfers bimanual object transport to hardware.
+
+- **DOI / venue:** [10.1609/aaai.v40i22.38959](https://doi.org/10.1609/aaai.v40i22.38959) · [AAAI 2026](https://ojs.aaai.org/index.php/AAAI/article/view/38959).
+- **Robot / learning:** Panda bimanual setup; gripper/sensor models unspecified. robomimic/robosuite 1.4.1/MuJoCo 2.1.0. Diffusion BC with dispersive loss + PPO fine-tuning in SIM; no physical policy fine-tuning described.
+- **SIM → REAL:** **Transport: 87% → 70%**, retention **80.46%**, using the post-RL policy. The 94% SIM average across four tasks is not used.
+- **Score: 2.** The paper explicitly compares Transport across training/deployment stages, but REAL trial counts, uncertainty, and detailed matching conditions are not supplied.
+- **Evidence:** [Table II and Fig. 10, arXiv appendix p. 18](https://arxiv.org/pdf/2508.02644v1#page=18).
+- **Video / GitHub:** [Physical Transport demo](https://guowei-zou.github.io/d2ppo/images/real_robot/transport_success.mp4) · [Project](https://guowei-zou.github.io/d2ppo/) · [Training and evaluation release](https://github.com/Guowei-Zou/d2ppo-release). Complete hardware-stack coverage is not established.
+- **Last reviewed:** 2026-10-01.
+
+### FUNCanon (2026)
+
+**FUNCanon: Learning Pose-Aware Action Primitives via Functional Object Canonicalization for Generalizable Robotic Manipulation**
+
+Learns object-centered diffusion primitives from augmented simulation demonstrations for physical placement and pouring.
+
+- **DOI / venue:** [10.48550/arXiv.2509.19102](https://doi.org/10.48550/arXiv.2509.19102) **(preprint DOI; publisher DOI not located)** · ICRA 2026, listed by the [authors' institution](https://tams.informatik.uni-hamburg.de/publications/index.php?content=01-publications).
+- **Robot / learning:** “Franka Emika,” **model not reported**, with multiple RealSense cameras; gripper model unspecified. RLBench/CoppeliaSim; FuncDiffuser diffusion BC, functional trajectory augmentation and language-model task decomposition. Zero-shot physical policy.
+- **SIM / REAL:** Table III: **88% pick-and-place, 90% Pour L1, 88% Pour L2**. The text states 50 real trials with unknown objects, without clearly allocating that count per condition.
+- **Score: Unrated.** SIM benchmarks different variation suites; real evaluation also filters unreachable targets. There is no matched SIM denominator for the deployed conditions.
+- **Evidence:** [§IV and Table III, PDF p. 7; Appendix E](https://arxiv.org/pdf/2509.19102v2#page=7).
+- **Qualitative / GitHub:** [Official real-experiment media and supplement](https://sites.google.com/view/funcanon). A separate video URL and public task-specific GitHub release were not located.
+- **Last reviewed:** 2026-10-01.
+
+### Sim-to-online RL (2026)
+
+**What Matters for Simulation to Online Reinforcement Learning on Real Robots**
+
+Studies how a simulation-trained visual picking policy improves through subsequent online interaction with a real Panda.
+
+- **DOI / venue:** [10.48550/arXiv.2602.20220](https://doi.org/10.48550/arXiv.2602.20220) **(preprint DOI)** · arXiv preprint, 2026; published venue not verified.
+- **Robot / learning:** Panda with gripper-mounted camera and proprioception; camera/gripper models unspecified. MuJoCo Playground/Brax; SAC with BRO critic and DrQ-style visual learning. Explicit **online REAL RL fine-tuning** after SIM pretraining.
+- **SIM / REAL:** Selected task: lift a cube and bring it within 5 cm of a goal. Hardware experiments use **three seeds** and report mean return with standard error over fine-tuning. Zero-shot picking often fails; online learning improves returns.
+- **Score: Unrated.** The reward learning curves are quantitative, but do not establish a matched SIM/REAL success-retention pair for the adapted policy.
+- **Evidence:** [§5, Figs. 4/6/9 and hardware appendix](https://arxiv.org/pdf/2602.20220v2#page=7).
+- **Video / GitHub:** Physical photos in Fig. 1; official public video not located. [Panda training and ROS utilities](https://github.com/yardenas/panda-rl-kit).
+- **Last reviewed:** 2026-10-01.
+
+### AffordSim (2026)
+
+**AffordSim: A Scalable Data Generator and Benchmark for Affordance-Aware Robotic Manipulation**
+
+Generates affordance-guided simulation demonstrations and trains visual policies that execute physical manipulation tasks.
+
+- **DOI / venue:** [10.48550/arXiv.2604.11674](https://doi.org/10.48550/arXiv.2604.11674) **(preprint DOI)** · arXiv preprint, 2026; published venue not verified.
+- **Robot / learning:** **FR3**, wrist/third-person RGB and proprioception; hardware sensor/gripper models unspecified. Isaac Sim with 3DGS backgrounds; selected **π0.5 imitation fine-tuning**, 300 synthetic demonstrations/task. No real-world policy fine-tuning.
+- **SIM → REAL:** Banana-to-plate: **93/100 = 93% → 4/10 = 40%**, retention **43.01%**. This uses the task-specific π0.5 rows of Tables 2/3, not their different-suite averages.
+- **Score: 1, task-level comparison.** The physical success rate drops substantially. SIM varies object pose with fixed appearance; REAL uses a reconstructed physical workspace. Matched sampled poses and uncertainty are not reported; ten physical attempts limit precision.
+- **Evidence:** [§§4.2/4.4, Tables 2/3, PDF pp. 8–9](https://arxiv.org/pdf/2604.11674v2#page=8).
+- **Video / GitHub:** Real task photos in Fig. 6; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### VLAJS (2026)
+
+**Vision-Language-Action Jump-Starting for Reinforcement Learning Robotic Agents**
+
+Uses temporary VLA guidance to bootstrap simulated RL, then deploys the learned manipulation policy on a Panda.
+
+- **DOI / venue:** [10.48550/arXiv.2604.13733](https://doi.org/10.48550/arXiv.2604.13733) **(preprint DOI)** · [ICRA 2026 RL4IL workshop](https://rl4il-icra.github.io/assets/papers/P11_vision.pdf), not the main conference.
+- **Robot / learning:** Panda, parallel gripper and camera-based object detection; sensor model unspecified. ManiSkill/SAPIEN; PPO with annealed OpenVLA/Octo guidance and directional regularization. Zero-shot task-policy deployment with YOLO state estimation.
+- **SIM / REAL:** Table II: **70% cube lifting, 80% pick-and-place, 20% peg reorientation**, **20 REAL trials/task**. SIM results compare multiple reward variants and training budgets.
+- **Score: Unrated.** The REAL table does not identify a matching SIM checkpoint result among those variants; an aggregate SIM curve is not a defensible task denominator.
+- **Evidence:** [§IV, Table II and Fig. 9, PDF p. 8](https://arxiv.org/pdf/2604.13733v2#page=8).
+- **Video / GitHub:** Physical photos in Fig. 9; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### MATCH (2026)
+
+**Learning Hybrid-Control Policies for High-Precision In-Contact Manipulation Under Uncertainty**
+
+Learns to switch position/force behavior while inserting a fragile peg under uncertain alignment.
+
+- **DOI / venue:** [10.48550/arXiv.2604.19677](https://doi.org/10.48550/arXiv.2604.19677) **(preprint DOI)** · arXiv preprint, 2026; published venue not verified.
+- **Robot / learning:** **FR3**, pregrasped peg and force estimated from joint torque; gripper model unspecified. Isaac Lab/Isaac Sim; PPO with hybrid actions, mode-aware gradients and an auxiliary selection loss. Real controller calibration and policy selection, without reported real policy-weight fine-tuning.
+- **SIM / REAL:** At **7.5 mm pose noise**, REAL reaches **68/100**. SIM Fig. 4 reports **39.8%**, averaged across five seeds. Hardware selects the best seed using separate preliminary trials and uses the transfer-training configuration.
+- **Score: Unrated.** The five-seed SIM mean is not a matched result for the selected physical policy; 68/39.8 would conflate policy selection and transfer.
+- **Evidence:** [§IV, Figs. 4/5, PDF pp. 6–7](https://arxiv.org/pdf/2604.19677v1#page=6).
+- **Video / GitHub:** [Official physical insertion clip](https://robonuke.github.io/learning_hybrid-control_for_in-contact_manipulation/assets/real_match.mp4) · [Environment and PPO code](https://github.com/RoboNuke/Continuous_Force_RL).
+- **Last reviewed:** 2026-10-01.
+
+### World-action transfer (2026)
+
+**Efficient Sim-to-Real Transfer of World-Action Models from Synthetic Priors**
+
+Post-trains a video-based world-action policy on generated simulation demonstrations for physical tabletop manipulation.
+
+- **DOI / venue:** [10.48550/arXiv.2606.31101](https://doi.org/10.48550/arXiv.2606.31101) **(preprint DOI)** · CVPR 2026 EAI workshop, per the [author's publication page](https://wzx16.github.io/index.html).
+- **Robot / learning:** **FR3**, wrist and third-person RGB; gripper/sensor models unspecified. Cosmos Policy video-diffusion imitation learning on approximately 800 synthetic demonstrations/task, generated with AnyTask/ViPR; no real demonstrations for task training.
+- **Simulator:** §2.2 calls it a GPU-accelerated simulator and cites **Isaac Gym**. The actual implementation/version is not identified; the parent data-generator's simulator is not silently substituted.
+- **SIM / REAL:** Table 1: banana lift **5/10**, brick lift **5/10**, drawer opening **2/10**, strawberry-to-bowl **2/10**; **35% overall**.
+- **Score: Unrated.** No corresponding SIM policy-success evaluation is reported.
+- **Evidence:** [§§2.2/3 and Table 1, PDF p. 2](https://arxiv.org/pdf/2606.31101v1#page=2).
+- **Video / GitHub:** REAL snapshots in Figs. 1/2; official public video and task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### Object-centric residual RL (2026)
+
+**Object-Centric Residual RL for Zero-Shot Sim-to-Real VLA Enhancement**
+
+Trains an object-relative action correction in simulation and attaches it to a real-robot VLA policy.
+
+- **DOI / venue:** [10.48550/arXiv.2606.18953](https://doi.org/10.48550/arXiv.2606.18953) **(preprint DOI)** · arXiv preprint, 2026; published venue not verified.
+- **Robot / learning:** **FR3**, visual object-pose estimation; gripper/sensor models unspecified. MuJoCo; TD3 residual over frozen GR00T-N1.5. The residual transfers zero-shot, but the REAL base VLA is trained using **30 real demonstrations/task**.
+- **SIM / REAL:** Cube-to-bowl: SIM **17.0/20 ± 2.0**, averaged over three seeds; REAL **16/20 = 80%**, versus 9/20 without the residual.
+- **Score: Unrated.** SIM and REAL use separately trained base VLAs. The common residual does not make the complete policies identical, so these counts are not used for composite-policy retention.
+- **Evidence:** [§§3/4 and Table 1, PDF p. 6](https://arxiv.org/pdf/2606.18953v1#page=6).
+- **Video / GitHub:** [Official video](https://www.youtube.com/watch?v=w7h9SH8vCYI) · [Microsoft Research project](https://www.microsoft.com/en-us/research/articles/object-centric-residual-rl/). Public task-specific GitHub source not located.
+- **Last reviewed:** 2026-10-01.
+
+### MoDex (2026)
+
+**MoDex: A Diffusion Policy for Sequential Multi-Object Dexterous Grasping**
+
+Learns arm-and-hand actions that grasp additional objects while retaining objects already held.
+
+- **DOI / venue:** [10.48550/arXiv.2606.05407](https://doi.org/10.48550/arXiv.2606.05407) **(preprint DOI)** · arXiv preprint, 2026; conference acceptance not verified.
+- **Robot / learning:** Panda + 16-DoF Allegro Hand, Kinect v3 point clouds. robosuite/MuJoCo; opposition-space-conditioned 3D Diffusion BC + DPPO. SIM-only policy training; REAL adds Gemini-based opposition-space selection.
+- **SIM / REAL:** Stages 1/2/3: SIM **75.00% ± 3.68% / 49.58% ± 1.18% / 45.00% ± 2.70%**, REAL **57.78% / 26.67% / 20.00%**. SIM: three seeds, 80 episodes/stage/seed across four opposition spaces. REAL tests five objects, four unseen; the stated attempts and aggregation denominator are not fully clear.
+- **Score: Unrated.** SIM averages and REAL selected opposition spaces are unmatched. Later stages are initialized with earlier objects already grasped; 20% is not established as full-sequence success.
+- **Evidence:** [§4, Tables 1/3, PDF pp. 7–8](https://arxiv.org/pdf/2606.05407v1#page=7). The project's SIM table differs; paper values take precedence.
+- **Video / GitHub:** [Official demonstration video](https://modex2026.github.io/static/videos/MoDex_Silent.mov) · [Project](https://modex2026.github.io/). Its Code button is a placeholder; no verified source release located.
+- **Last reviewed:** 2026-10-01.
+
+### TAM (2026)
+
+**TAM: Torque Adaptation Module for Robust Motion Transfer in Manipulation**
+
+Adds a learned torque correction beneath a simulated visual pushing policy to improve physical motion tracking.
+
+- **DOI / venue:** [10.48550/arXiv.2606.06218](https://doi.org/10.48550/arXiv.2606.06218) **(preprint DOI)** · CoRL 2026, accepted per the [authors' arXiv record](https://arxiv.org/abs/2606.06218).
+- **Robot / learning:** Panda with partial point clouds/proprioception; gripper/camera models unspecified. MuJoCo/MJX; PPO teacher → point-cloud BC policy, plus a separately supervised history-conditioned torque adapter. All adaptation training occurs in simulation.
+- **SIM → REAL:** Visual box pushing: **84.0% ideal-SIM reference → 76.2% REAL (16/21)**, retention **90.71%**. SIM's evaluation denominator is not separately specified; uncertainty is not given.
+- **Score: 3, ideal-SIM reference.** Table 1 compares the same high-level policy, with TAM below it on hardware. Public adapter code exists; release coverage for the complete task-specific visual policy is not established for score 4.
+- **Evidence:** [Table 1 and Appendix E.1](https://arxiv.org/pdf/2606.06218v2#page=6).
+- **Video / GitHub:** [Real pushing demo](https://dongwon-son.github.io/tam-project-page/assets/videos/push_TAM_stb_edit.mp4) · [Adapter training, checkpoints and deployment utilities](https://github.com/Dongwon-Son/TAM).
 - **Last reviewed:** 2026-10-01.

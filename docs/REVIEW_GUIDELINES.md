@@ -22,7 +22,7 @@ Simulation-only benchmarks, manually programmed controllers without a learned ta
 
 The review unit is **paper × task × policy/transfer setting**. Split entries when a paper reports materially different tasks or transfer settings. A clearly identified family of task variants may share an entry when the SIM and REAL results cover the same variants. Do not give an entire paper its best task's score.
 
-The collection target is **at least 20 distinct eligible papers**, not 20 task rows. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
+The initial collection target is **at least 20 distinct eligible papers**, not 20 task rows. This is a minimum, not a stopping rule: continue expanding the collection when requested and eligible evidence is available. Count an arXiv preprint, its conference/journal publication, workshop versions, and multiple tasks from that work once. If the search cannot establish enough eligible papers, report the verified count and the evidence gaps rather than padding the list.
 
 Keep this file and other research instructions under `docs/`. Keep `README.md` focused on the reviewed results, with links to these instructions. Write repository content in English and record the update/review date. Commit and push completed updates when working under the user's existing request to do so.
 
