@@ -10,6 +10,20 @@ Twenty-four works have numerical assessments for the selected settings, includin
 
 This is a curated search result, not an exhaustive literature census. Its simulator counts cannot establish whether MuJoCo or the Isaac family is more common across all Franka sim-to-real research. Learning on mixed simulated/real data, real adaptation, system identification, and zero-shot policy transfer are explicitly distinguished.
 
+## Score statistics
+
+Statistics snapshot: **2026-10-02**, aggregated from the 84 existing index entries without reassessing papers. The mutually exclusive counts are **score 4: 4**, **score 3: 5**, **score 2: 7**, **score 1: 2**, **score 0: 4**, **multiple scores: 2**, and **Unrated: 60**. Each paper contributes once, giving **22 single-score + 2 multiple-score + 60 Unrated = 84 papers**. All shares use 84 as the denominator and are rounded to one decimal place. The scored-paper subtotal is **24/84 = 28.6%**; it includes score 0.
+
+The multiple-score papers are [Action-space study](../README.md#action-space-study-2024), with **3 / 1** by action space, and [Context-aware policies](../README.md#context-aware-policies-2026), with **2 / 1** by setting. They are not added to the individual score rows or reduced to their maximum. Their higher displayed scores still determine their positions in the index. Unrated denotes unavailable SIM-to-REAL comparison, not zero physical performance.
+
+## Index resource links
+
+Index update: **2026-10-02**. All 84 paper rows now include video/visuals and code columns using URLs already documented in their respective detailed reviews. Direct videos, project pages and photos have distinct labels. Code labels preserve limited scope, including TAM's adapter, OpenCR's utilities, SGFT's sim-to-sim example, FORGE's later Lab port and the upstream QD grasping code.
+
+NeuralTouch's GitHub link is labeled website-only, Tac2Real's an announcement, DAPL's a template, and HAMNet's a 404 from the recorded review. RFS retains its Coming Soon status and MoDex its placeholder status. These index links do not change release assessments or refresh their last-checked dates. An em dash indicates that no verified public resource URL was located in the checked sources.
+
+Validation confirmed that all 84 rows retain their original metadata, scores and order, and that the 130 resource-link placements come from the corresponding paper's detailed review. The score-category totals and percentages match the index; detailed reviews and simulator statistics are unchanged. These are consistency checks, not new HTTP availability checks or robot reproductions.
+
 ## Simulator statistics
 
 Statistics snapshot: **2026-10-02**, derived from the existing 84 reviewed entries. This aggregation does not change the individual papers' review dates or imply a new literature search. Each paper contributes once to a mutually exclusive training-simulator/framework category for its reviewed physical task, including simulated training-data generation. Framework aliases share their established simulator category; renderer and evaluation-only mentions do not create extra counts.
